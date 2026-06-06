@@ -93,47 +93,86 @@ export function renderApp(mountNode) {
     }
   });
 
-  // Main Content Area wrapper
+export function renderApp(mountNode) {
+  if (!mountNode) return;
+
+  // Clear previous content
+  mountNode.innerHTML = "";
+
+  // 1. Manage local interactive states
+  let isBookmarked = localStorage.getItem("loops_bookmarked") === "true";
+  let activeStepIndex = 2; // Step 3 by default (0-indexed is 2)
+
+  // Top bar references
+  let resolvedPill = createStatusPill({ label: loopSteps[activeStepIndex].status, type: "resolved" });
+  let categoryPill = createStatusPill({ label: loopSteps[activeStepIndex].category, type: "category" });
+
+  const topBar = createTopBar({
+    isBookmarked,
+    pills: [resolvedPill, categoryPill],
+    onBack: () => {
+      showToast("Navigate back simulation");
+    },
+    onBookmark: (e) => {
+      isBookmarked = !isBookmarked;
+      localStorage.setItem("loops_bookmarked", isBookmarked.toString());
+      const btn = e.currentTarget;
+      btn.classList.toggle("is-active", isBookmarked);
+      showToast(isBookmarked ? "Beitrag gemerkt" : "Lesezeichen entfernt");
+    },
+    onShare: () => {
+      navigator.clipboard.writeText(window.location.href)
+        .then(() => showToast("Link in die Zwischenablage kopiert"))
+        .catch(() => showToast("Teilen fehlgeschlagen"));
+    }
+  });
+
+  // Main Content Area wrapper (relative to allow absolute positioning of dots)
   const contentArea = document.createElement("main");
   contentArea.className = "app-content";
+  contentArea.style.position = "relative";
 
-  // Container for swipeable sequence items
-  const loopContainer = document.createElement("div");
-  loopContainer.className = "loop-container";
-
-  // Sub-layout rendering function to switch steps dynamically
-  function renderStep(index) {
-    activeStepIndex = index;
-    const currentStepData = loopSteps[index];
-
-    // Update Topbar pills based on current step
-    const topBarPillsContainer = topBar.querySelector(".loops-top-bar-pills");
-    if (topBarPillsContainer) {
-      topBarPillsContainer.innerHTML = "";
-      resolvedPill = createStatusPill({ label: currentStepData.status, type: currentStepData.status === "RESOLVED" || currentStepData.status === "DO NEXT" ? "resolved" : "category" });
-      categoryPill = createStatusPill({ label: currentStepData.category, type: "category" });
-      topBarPillsContainer.appendChild(resolvedPill);
-      topBarPillsContainer.appendChild(categoryPill);
+  // Create the stationary pagination dots
+  const paginationDots = createPaginationDots({
+    total: loopSteps.length,
+    activeIndex: activeStepIndex,
+    onChange: (index) => {
+      const slideWidth = scrollContainer.clientWidth;
+      scrollContainer.scrollTo({
+        left: index * slideWidth,
+        behavior: "smooth"
+      });
     }
+  });
 
-    // Clear previous step content in loopContainer
-    loopContainer.innerHTML = "";
+  // Create the horizontal scroll container
+  const scrollContainer = document.createElement("div");
+  scrollContainer.className = "loop-scroll-container";
 
-    // 1. Create Hero Card
+  // Render all steps inside the scroll container
+  loopSteps.forEach((stepData, index) => {
+    const slide = document.createElement("div");
+    slide.className = "loop-slide";
+    slide.dataset.index = index;
+
+    // Create Hero Card
     const heroCardWrapper = createHeroStoryCard({
-      imageUrl: currentStepData.imageUrl,
-      altText: currentStepData.imageAlt,
-      distance: currentStepData.distance,
-      recency: currentStepData.age
+      imageUrl: stepData.imageUrl,
+      altText: stepData.imageAlt,
+      distance: stepData.distance,
+      recency: stepData.age
     });
 
-    // Handle Hero Peeks
+    // Handle Hero Peeks (make them scroll instead of rendering a new step)
     const leftPeek = heroCardWrapper.querySelector(".left-peek");
     const rightPeek = heroCardWrapper.querySelector(".right-peek");
 
     leftPeek.addEventListener("click", () => {
       if (index > 0) {
-        animateSlideTransition(index - 1, "left");
+        scrollContainer.scrollTo({
+          left: (index - 1) * scrollContainer.clientWidth,
+          behavior: "smooth"
+        });
       } else {
         triggerBounce("left");
       }
@@ -141,25 +180,22 @@ export function renderApp(mountNode) {
 
     rightPeek.addEventListener("click", () => {
       if (index < loopSteps.length - 1) {
-        animateSlideTransition(index + 1, "right");
+        scrollContainer.scrollTo({
+          left: (index + 1) * scrollContainer.clientWidth,
+          behavior: "smooth"
+        });
       } else {
         triggerBounce("right");
       }
     });
 
-    // 2. Create Pagination Dots
-    const paginationDots = createPaginationDots({
-      total: loopSteps.length,
-      activeIndex: index,
-      onChange: (newIndex) => {
-        animateSlideTransition(newIndex, newIndex > index ? "right" : "left");
-      }
-    });
+    // Dots Spacer
+    const dotsSpacer = document.createElement("div");
+    dotsSpacer.className = "slide-dots-spacer";
 
-    // 3. Render Explainer or Custom DO NEXT Card
+    // Explainer or DO NEXT Card
     let explainerCard;
-    if (currentStepData.isDoNext) {
-      // Custom DO NEXT Card
+    if (stepData.isDoNext) {
       explainerCard = document.createElement("div");
       explainerCard.className = "loops-explainer-card do-next-card";
       explainerCard.innerHTML = `
@@ -176,7 +212,7 @@ export function renderApp(mountNode) {
             </div>
             <div class="explainer-header-right">4/4</div>
           </div>
-          <h2 class="explainer-headline">${currentStepData.title}</h2>
+          <h2 class="explainer-headline">${stepData.title}</h2>
           
           <button type="button" class="btn-take-action" id="takeActionBtn">
             <span>Take Action</span>
@@ -188,7 +224,6 @@ export function renderApp(mountNode) {
         </div>
       `;
 
-      // Wire Action Button
       const actionBtn = explainerCard.querySelector("#takeActionBtn");
       actionBtn.addEventListener("click", (e) => {
         triggerFireExplosion(e);
@@ -198,8 +233,7 @@ export function renderApp(mountNode) {
       });
 
     } else {
-      // Standard Explainer Card
-      const impactPanel = createInsetImpactPanel({ text: currentStepData.impactText });
+      const impactPanel = createInsetImpactPanel({ text: stepData.impactText });
       
       const fullReportLink = document.createElement("a");
       fullReportLink.href = "#";
@@ -218,50 +252,74 @@ export function renderApp(mountNode) {
       });
 
       explainerCard = createExplainerCard({
-        title: currentStepData.title,
-        impactTitle: currentStepData.impactTitle,
-        counter: `${currentStepData.step}/${loopSteps.length}`,
+        title: stepData.title,
+        impactTitle: stepData.impactTitle,
+        counter: `${stepData.step}/${loopSteps.length}`,
         children: [impactPanel, fullReportLink]
       });
     }
 
-    loopContainer.appendChild(heroCardWrapper);
-    loopContainer.appendChild(paginationDots);
-    loopContainer.appendChild(explainerCard);
+    slide.appendChild(heroCardWrapper);
+    slide.appendChild(dotsSpacer);
+    slide.appendChild(explainerCard);
+    scrollContainer.appendChild(slide);
+  });
+
+  // Dynamic visual updates (dots + top bar pills) when active step changes
+  function updateActiveStepVisuals(index) {
+    const currentStepData = loopSteps[index];
+
+    // Update Topbar pills
+    const topBarPillsContainer = topBar.querySelector(".loops-top-bar-pills");
+    if (topBarPillsContainer) {
+      topBarPillsContainer.innerHTML = "";
+      resolvedPill = createStatusPill({ label: currentStepData.status, type: currentStepData.status === "RESOLVED" || currentStepData.status === "DO NEXT" ? "resolved" : "category" });
+      categoryPill = createStatusPill({ label: currentStepData.category, type: "category" });
+      topBarPillsContainer.appendChild(resolvedPill);
+      topBarPillsContainer.appendChild(categoryPill);
+    }
+
+    // Update Pagination Dots active class
+    const dots = paginationDots.querySelectorAll(".pagination-dot");
+    dots.forEach((dot, dotIdx) => {
+      dot.classList.toggle("is-active", dotIdx === index);
+    });
   }
 
-  function animateSlideTransition(targetIndex, direction) {
-    loopContainer.style.opacity = "0";
-    loopContainer.style.transform = direction === "right" ? "translateX(-16px)" : "translateX(16px)";
-    
-    setTimeout(() => {
-      renderStep(targetIndex);
-      loopContainer.style.transform = direction === "right" ? "translateX(16px)" : "translateX(-16px)";
-      // Force layout
-      void loopContainer.offsetWidth;
-      loopContainer.style.opacity = "1";
-      loopContainer.style.transform = "translateX(0)";
-    }, 150);
-  }
+  // Scroll event listener to track active step
+  scrollContainer.addEventListener("scroll", () => {
+    const index = Math.round(scrollContainer.scrollLeft / scrollContainer.clientWidth);
+    if (index !== activeStepIndex && index >= 0 && index < loopSteps.length) {
+      activeStepIndex = index;
+      updateActiveStepVisuals(index);
+    }
+  });
 
+  // Bounce simulation for boundaries
   function triggerBounce(direction) {
-    loopContainer.classList.remove("slide-bounce-left", "slide-bounce-right");
-    void loopContainer.offsetWidth;
+    scrollContainer.classList.remove("slide-bounce-left", "slide-bounce-right");
+    void scrollContainer.offsetWidth;
     if (direction === "left") {
-      loopContainer.classList.add("slide-bounce-left");
+      scrollContainer.classList.add("slide-bounce-left");
       showToast("Erste Seite erreicht");
     } else {
-      loopContainer.classList.add("slide-bounce-right");
+      scrollContainer.classList.add("slide-bounce-right");
       showToast("Letzte Seite erreicht");
     }
     setTimeout(() => {
-      loopContainer.classList.remove("slide-bounce-left", "slide-bounce-right");
+      scrollContainer.classList.remove("slide-bounce-left", "slide-bounce-right");
     }, 500);
   }
 
-  // Initial render of default step
-  renderStep(activeStepIndex);
-  contentArea.appendChild(loopContainer);
+  // Set initial scroll position to default step (Step 3 is index 2)
+  setTimeout(() => {
+    scrollContainer.scrollLeft = activeStepIndex * scrollContainer.clientWidth;
+    updateActiveStepVisuals(activeStepIndex);
+  }, 50);
+
+  contentArea.appendChild(scrollContainer);
+  contentArea.appendChild(paginationDots); // Add pagination dots as stationary element
+
 
   // Append elements to app shell
   mountNode.appendChild(topBar);

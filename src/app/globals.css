@@ -125,13 +125,33 @@ a:focus:not(:focus-visible),
   display: none;
 }
 
-/* Swipeable Sequence hints styling */
-.loop-container {
+/* Horizontal scroll container with snapping */
+.loop-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  width: 100%;
+  height: 100%;
+}
+
+.loop-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.loop-slide {
+  width: 100%;
+  flex-shrink: 0;
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  gap: var(--major-section);
-  position: relative;
-  transition: transform var(--transition-normal);
+  gap: 12px;
+}
+
+.slide-dots-spacer {
+  height: 22px;
+  flex-shrink: 0;
 }
 
 /* Slide animation classes */
@@ -368,13 +388,18 @@ a:focus:not(:focus-visible),
   transform: translateX(4px);
 }
 
-/* Pagination Dots Styles */
+/* Pagination Dots Styles (Stationary) */
 .loops-pagination-dots {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  margin: 4px 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(16px + 290px + 10px);
+  z-index: 10;
+  pointer-events: auto;
   flex-shrink: 0;
 }
 
