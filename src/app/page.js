@@ -8,16 +8,6 @@ import { createPaginationDots } from "../components/loops/pagination-dots.js";
 import { createExplainerCard } from "../components/loops/explainer-card.js";
 import { createInsetImpactPanel } from "../components/loops/inset-impact-panel.js";
 
-// App Page Entry and Main Composition
-
-import { storyLoop } from "../lib/content.js";
-import { createTopBar } from "../components/loops/top-bar.js";
-import { createStatusPill } from "../components/loops/status-pill.js";
-import { createHeroStoryCard } from "../components/loops/hero-story-card.js";
-import { createPaginationDots } from "../components/loops/pagination-dots.js";
-import { createExplainerCard } from "../components/loops/explainer-card.js";
-import { createInsetImpactPanel } from "../components/loops/inset-impact-panel.js";
-
 // Multi-step story constants
 const loopSteps = [
   {
