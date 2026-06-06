@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Stimme Loops — Regional Micro-News Prototype</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Stimme Loops is a premium regional micro-news format for stimme.de translating local journalism into a calm, mobile-first broadsheet sequence.">
+  <meta name="theme-color" content="#16324A">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="src/app/globals.css">
+</head>
+<body>
+
+  <!-- Mobile App Shell -->
+  <div id="app" class="app-shell" role="document" aria-label="Stimme Loops Mobile App Shell">
+    <!-- Mounted by Page JS -->
+  </div>
+
+  <!-- Firebase SDK Initialization -->
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // Replace with your actual config for "Prototipado" project
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "prototipado.firebaseapp.com",
+      projectId: "prototipado",
+      storageBucket: "prototipado.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  </script>
+
+  <!-- Bootstrapping Script -->
+  <script type="module">
+    import { renderApp } from './src/app/page.js';
+    
+    // Mount to the app div
+    const appContainer = document.getElementById('app');
+    renderApp(appContainer);
+  </script>
+</body>
+</html>
