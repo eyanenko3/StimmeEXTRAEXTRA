@@ -93,40 +93,6 @@ export function renderApp(mountNode) {
     }
   });
 
-export function renderApp(mountNode) {
-  if (!mountNode) return;
-
-  // Clear previous content
-  mountNode.innerHTML = "";
-
-  // 1. Manage local interactive states
-  let isBookmarked = localStorage.getItem("loops_bookmarked") === "true";
-  let activeStepIndex = 2; // Step 3 by default (0-indexed is 2)
-
-  // Top bar references
-  let resolvedPill = createStatusPill({ label: loopSteps[activeStepIndex].status, type: "resolved" });
-  let categoryPill = createStatusPill({ label: loopSteps[activeStepIndex].category, type: "category" });
-
-  const topBar = createTopBar({
-    isBookmarked,
-    pills: [resolvedPill, categoryPill],
-    onBack: () => {
-      showToast("Navigate back simulation");
-    },
-    onBookmark: (e) => {
-      isBookmarked = !isBookmarked;
-      localStorage.setItem("loops_bookmarked", isBookmarked.toString());
-      const btn = e.currentTarget;
-      btn.classList.toggle("is-active", isBookmarked);
-      showToast(isBookmarked ? "Beitrag gemerkt" : "Lesezeichen entfernt");
-    },
-    onShare: () => {
-      navigator.clipboard.writeText(window.location.href)
-        .then(() => showToast("Link in die Zwischenablage kopiert"))
-        .catch(() => showToast("Teilen fehlgeschlagen"));
-    }
-  });
-
   // Main Content Area wrapper (relative to allow absolute positioning of dots)
   const contentArea = document.createElement("main");
   contentArea.className = "app-content";
