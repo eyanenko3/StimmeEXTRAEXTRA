@@ -695,5 +695,14 @@ a:focus:not(:focus-visible),
   color: var(--brand-navy);
 }
 
-
-
+/* Premium Editorial Text Highlights */
+mark.editorial-highlight {
+  background: linear-gradient(120deg, rgba(217, 138, 43, 0.15) 0%, rgba(217, 138, 43, 0.08) 100%);
+  background-color: transparent;
+  color: var(--brand-navy);
+  padding: 0.1em 0.3em;
+  margin: 0 -0.1em;
+  border-radius: 4px;
+  font-weight: 500;
+  border-bottom: 1.5px solid rgba(217, 138, 43, 0.3);
+}

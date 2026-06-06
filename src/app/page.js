@@ -168,20 +168,20 @@ export function renderApp(mountNode) {
         <span class="drawer-time">1d ago</span>
       </div>
       <h1 class="drawer-title">Fahrradkorridor Weststadt: Sanierung und Sicherheits-Upgrade fertiggestellt</h1>
-      <p class="drawer-lead">Die Stadtverwaltung Heilbronn hat die umfassenden Sanierungsarbeiten an der zentralen Radverkehrsachse Weststadt abgeschlossen. Das Millionenprojekt soll vor allem Schulwege sicherer machen.</p>
+      <p class="drawer-lead">Die Stadtverwaltung Heilbronn hat die umfassenden Sanierungsarbeiten an der zentralen Radverkehrsachse Weststadt abgeschlossen. <mark class="editorial-highlight">Das Millionenprojekt soll vor allem Schulwege sicherer machen.</mark></p>
       
       <img src="${storyLoop.imageUrl}" alt="${storyLoop.imageAlt}" class="drawer-image" />
       
       <p class="drawer-body">Nach fast viermonatiger Bauzeit ist die vielbefahrene Weststadt-Route wieder uneingeschränkt für den Verkehr freigegeben. Neben einem lärmoptimierten, glatten Asphaltbelag wurden auf einer Länge von rund 1,8 Kilometern breitere, farblich abgesetzte Schutzstreifen aufgetragen.</p>
       
-      <p class="drawer-body">„Das Projekt zeigt, wie moderne Nahmobilität in unserer Region aussehen kann“, so Oberbürgermeister Harry Mergel bei der offiziellen Freigabe. Besonders im Fokus stand die Erhöhung der passiven Sicherheit an unübersichtlichen Einmündungen. Hier wurden reflektierende Markierungselemente und optimierte Ampelschaltungen installiert.</p>
+      <p class="drawer-body">„Das Projekt zeigt, wie moderne Nahmobilität in unserer Region aussehen kann“, so Oberbürgermeister Harry Mergel bei der offiziellen Freigabe. <mark class="editorial-highlight">Besonders im Fokus stand die Erhöhung der passiven Sicherheit an unübersichtlichen Einmündungen.</mark> Hier wurden reflektierende Markierungselemente und optimierte Ampelschaltungen installiert.</p>
       
       <div class="drawer-quote-panel">
         <span class="quote-symbol">„</span>
         <p class="quote-text">Vor allem die verbesserten Abflüsse an den Fahrbahnrändern sorgen dafür, dass Radfahrer auch bei starkem Regen nicht mehr durch tiefe Pfützen gefährdet werden.</p>
       </div>
 
-      <p class="drawer-body">Die Kosten belaufen sich auf rund 820.000 Euro, wovon ein Großteil aus Mitteln des Landes-Verkehrsfinanzierungsgesetzes gefördert wurde. Pendler und Anwohner äußerten sich in ersten Befragungen positiv über den neuen Fahrkomfort.</p>
+      <p class="drawer-body"><mark class="editorial-highlight">Die Kosten belaufen sich auf rund 820.000 Euro</mark>, wovon ein Großteil aus Mitteln des Landes-Verkehrsfinanzierungsgesetzes gefördert wurde. Pendler und Anwohner äußerten sich in ersten Befragungen positiv über den neuen Fahrkomfort.</p>
     </div>
   `;
   mountNode.appendChild(articleDrawer);
@@ -189,14 +189,97 @@ export function renderApp(mountNode) {
   const closeDrawerBtn = articleDrawer.querySelector(".btn-drawer-close");
   closeDrawerBtn.addEventListener("click", closeArticleDrawer);
 
+  // Drag-to-close and Scroll-up-to-close logic
+  const drawerContent = articleDrawer.querySelector(".drawer-content");
+  let startY = 0;
+  let currentY = 0;
+  let isDragging = false;
+
+  // Touch Drag-to-Close
+  articleDrawer.addEventListener("touchstart", (e) => {
+    if (drawerContent.scrollTop <= 0) {
+      startY = e.touches[0].clientY;
+      isDragging = true;
+      articleDrawer.style.transition = "none";
+    }
+  }, { passive: true });
+
+  articleDrawer.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    currentY = e.touches[0].clientY;
+    const deltaY = currentY - startY;
+    if (deltaY > 0) {
+      if (e.cancelable) e.preventDefault();
+      articleDrawer.style.transform = `translateY(${deltaY}px)`;
+    } else {
+      articleDrawer.style.transform = "";
+      isDragging = false;
+    }
+  }, { passive: false });
+
+  articleDrawer.addEventListener("touchend", () => {
+    if (!isDragging) return;
+    isDragging = false;
+    articleDrawer.style.transition = "";
+    const deltaY = currentY - startY;
+    if (deltaY > 100) {
+      closeArticleDrawer();
+    } else {
+      articleDrawer.style.transform = "";
+    }
+  });
+
+  // Mouse Drag-to-Close
+  articleDrawer.addEventListener("mousedown", (e) => {
+    // Avoid initiating drag on scrollbar click or close button
+    if (e.target.closest(".btn-drawer-close") || e.target.closest(".drawer-content") && drawerContent.scrollTop > 0) {
+      return;
+    }
+    startY = e.clientY;
+    isDragging = true;
+    articleDrawer.style.transition = "none";
+  });
+
+  window.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    currentY = e.clientY;
+    const deltaY = currentY - startY;
+    if (deltaY > 0) {
+      articleDrawer.style.transform = `translateY(${deltaY}px)`;
+    } else {
+      articleDrawer.style.transform = "";
+      isDragging = false;
+    }
+  });
+
+  window.addEventListener("mouseup", () => {
+    if (!isDragging) return;
+    isDragging = false;
+    articleDrawer.style.transition = "";
+    const deltaY = currentY - startY;
+    if (deltaY > 100) {
+      closeArticleDrawer();
+    } else {
+      articleDrawer.style.transform = "";
+    }
+  });
+
+  // Scroll Up to Close (wheel event at top)
+  drawerContent.addEventListener("wheel", (e) => {
+    if (drawerContent.scrollTop <= 0 && e.deltaY < -15) {
+      closeArticleDrawer();
+    }
+  }, { passive: true });
+
   function openArticleDrawer() {
+    articleDrawer.style.transform = "";
     articleDrawer.classList.add("is-open");
-    // Accessibility: set focus to drawer header or close button
     setTimeout(() => closeDrawerBtn.focus(), 300);
   }
 
   function closeArticleDrawer() {
     articleDrawer.classList.remove("is-open");
+    articleDrawer.style.transform = "";
     fullReportLink.focus();
   }
 }
