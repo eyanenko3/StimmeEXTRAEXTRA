@@ -8,6 +8,67 @@ import { createPaginationDots } from "../components/loops/pagination-dots.js";
 import { createExplainerCard } from "../components/loops/explainer-card.js";
 import { createInsetImpactPanel } from "../components/loops/inset-impact-panel.js";
 
+// App Page Entry and Main Composition
+
+import { storyLoop } from "../lib/content.js";
+import { createTopBar } from "../components/loops/top-bar.js";
+import { createStatusPill } from "../components/loops/status-pill.js";
+import { createHeroStoryCard } from "../components/loops/hero-story-card.js";
+import { createPaginationDots } from "../components/loops/pagination-dots.js";
+import { createExplainerCard } from "../components/loops/explainer-card.js";
+import { createInsetImpactPanel } from "../components/loops/inset-impact-panel.js";
+
+// Multi-step story constants
+const loopSteps = [
+  {
+    step: 1,
+    title: "Sanierungspläne für das Weststadt-Viertel vorgestellt",
+    category: "Planung",
+    status: "GEPLANT",
+    age: "3m ago",
+    distance: "0.4 km away",
+    impactTitle: "WAS GEPLANT IST",
+    impactText: "Die Stadt plant, in den nächsten Monaten mehrere Straßen im Weststadt-Viertel umfassend zu erneuern und fahrradfreundlicher zu gestalten, um die Schulwegsicherheit zu erhöhen.",
+    imageUrl: "public/images/loops-bike-corridor.png",
+    imageAlt: "Planning representation of Weststadt corridor"
+  },
+  {
+    step: 2,
+    title: "Baustart an der zentralen Radverkehrsachse",
+    category: "Infrastruktur",
+    status: "IM BAU",
+    age: "2m ago",
+    distance: "0.4 km away",
+    impactTitle: "AKTUELLE BEHINDERUNGEN",
+    impactText: "Die Bauarbeiten haben offiziell begonnen. Autofahrer müssen mit lokalen Umleitungen rechnen. Radfahrer werden vorübergehend über ruhige Nebenstraßen umgeleitet.",
+    imageUrl: "public/images/loops-bike-corridor.png",
+    imageAlt: "Construction works in Weststadt"
+  },
+  {
+    step: 3,
+    title: "Bike corridor repair completed on Weststadt route",
+    category: "Local Gov",
+    status: "RESOLVED",
+    age: "1d ago",
+    distance: "0.4 km away",
+    impactTitle: "WHAT IT MEANS FOR YOU",
+    impactText: "If you bike or drive through this area, the route is now safer and easier to use. The city also added clearer lane markings and improved drainage, which should reduce disruptions after rain.",
+    imageUrl: "public/images/loops-bike-corridor.png",
+    imageAlt: "Completed Weststadt bike corridor"
+  },
+  {
+    step: 4,
+    isDoNext: true,
+    title: "Know another road that needs fixing? File a report.",
+    category: "Community",
+    status: "DO NEXT",
+    age: "Aktiv",
+    distance: "Heilbronn",
+    imageUrl: "public/images/loops-bike-corridor.png",
+    imageAlt: "Community action photo of local roads"
+  }
+];
+
 export function renderApp(mountNode) {
   if (!mountNode) return;
 
@@ -16,12 +77,12 @@ export function renderApp(mountNode) {
 
   // 1. Manage local interactive states
   let isBookmarked = localStorage.getItem("loops_bookmarked") === "true";
+  let activeStepIndex = 2; // Step 3 by default (0-indexed is 2)
 
-  // 2. Create status pills
-  const resolvedPill = createStatusPill({ label: storyLoop.status, type: "resolved" });
-  const categoryPill = createStatusPill({ label: storyLoop.category, type: "category" });
+  // Top bar references
+  let resolvedPill = createStatusPill({ label: loopSteps[activeStepIndex].status, type: "resolved" });
+  let categoryPill = createStatusPill({ label: loopSteps[activeStepIndex].category, type: "category" });
 
-  // 3. Compose Top Bar
   const topBar = createTopBar({
     isBookmarked,
     pills: [resolvedPill, categoryPill],
@@ -31,8 +92,6 @@ export function renderApp(mountNode) {
     onBookmark: (e) => {
       isBookmarked = !isBookmarked;
       localStorage.setItem("loops_bookmarked", isBookmarked.toString());
-      
-      // Toggle class on the button
       const btn = e.currentTarget;
       btn.classList.toggle("is-active", isBookmarked);
       showToast(isBookmarked ? "Beitrag gemerkt" : "Lesezeichen entfernt");
@@ -44,87 +103,174 @@ export function renderApp(mountNode) {
     }
   });
 
-  // 4. Create App Content area
+  // Main Content Area wrapper
   const contentArea = document.createElement("main");
   contentArea.className = "app-content";
 
-  // 5. Container for swipeable sequence items
+  // Container for swipeable sequence items
   const loopContainer = document.createElement("div");
   loopContainer.className = "loop-container";
 
-  // 6. Create Hero Story Card
-  const heroCardWrapper = createHeroStoryCard({
-    imageUrl: storyLoop.imageUrl,
-    altText: storyLoop.imageAlt,
-    distance: storyLoop.distance,
-    recency: storyLoop.age
-  });
+  // Sub-layout rendering function to switch steps dynamically
+  function renderStep(index) {
+    activeStepIndex = index;
+    const currentStepData = loopSteps[index];
 
-  // Add click handlers on peeks to demonstrate sequence bounce
-  const leftPeek = heroCardWrapper.querySelector(".left-peek");
-  const rightPeek = heroCardWrapper.querySelector(".right-peek");
-  const mainHeroCard = heroCardWrapper.querySelector(".hero-story-card");
+    // Update Topbar pills based on current step
+    const topBarPillsContainer = topBar.querySelector(".loops-top-bar-pills");
+    if (topBarPillsContainer) {
+      topBarPillsContainer.innerHTML = "";
+      resolvedPill = createStatusPill({ label: currentStepData.status, type: currentStepData.status === "RESOLVED" || currentStepData.status === "DO NEXT" ? "resolved" : "category" });
+      categoryPill = createStatusPill({ label: currentStepData.category, type: "category" });
+      topBarPillsContainer.appendChild(resolvedPill);
+      topBarPillsContainer.appendChild(categoryPill);
+    }
 
-  leftPeek.addEventListener("click", () => triggerBounce("left"));
-  rightPeek.addEventListener("click", () => triggerBounce("right"));
+    // Clear previous step content in loopContainer
+    loopContainer.innerHTML = "";
+
+    // 1. Create Hero Card
+    const heroCardWrapper = createHeroStoryCard({
+      imageUrl: currentStepData.imageUrl,
+      altText: currentStepData.imageAlt,
+      distance: currentStepData.distance,
+      recency: currentStepData.age
+    });
+
+    // Handle Hero Peeks
+    const leftPeek = heroCardWrapper.querySelector(".left-peek");
+    const rightPeek = heroCardWrapper.querySelector(".right-peek");
+
+    leftPeek.addEventListener("click", () => {
+      if (index > 0) {
+        animateSlideTransition(index - 1, "left");
+      } else {
+        triggerBounce("left");
+      }
+    });
+
+    rightPeek.addEventListener("click", () => {
+      if (index < loopSteps.length - 1) {
+        animateSlideTransition(index + 1, "right");
+      } else {
+        triggerBounce("right");
+      }
+    });
+
+    // 2. Create Pagination Dots
+    const paginationDots = createPaginationDots({
+      total: loopSteps.length,
+      activeIndex: index,
+      onChange: (newIndex) => {
+        animateSlideTransition(newIndex, newIndex > index ? "right" : "left");
+      }
+    });
+
+    // 3. Render Explainer or Custom DO NEXT Card
+    let explainerCard;
+    if (currentStepData.isDoNext) {
+      // Custom DO NEXT Card
+      explainerCard = document.createElement("div");
+      explainerCard.className = "loops-explainer-card do-next-card";
+      explainerCard.innerHTML = `
+        <div class="explainer-card-content">
+          <div class="explainer-header-row">
+            <div class="explainer-header-left">
+              <span class="do-next-arrow-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+              <span class="explainer-header-title">DO NEXT</span>
+            </div>
+            <div class="explainer-header-right">4/4</div>
+          </div>
+          <h2 class="explainer-headline">${currentStepData.title}</h2>
+          
+          <button type="button" class="btn-take-action" id="takeActionBtn">
+            <span>Take Action</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+      `;
+
+      // Wire Action Button
+      const actionBtn = explainerCard.querySelector("#takeActionBtn");
+      actionBtn.addEventListener("click", (e) => {
+        triggerFireExplosion(e);
+        setTimeout(() => {
+          openCommentModal();
+        }, 600);
+      });
+
+    } else {
+      // Standard Explainer Card
+      const impactPanel = createInsetImpactPanel({ text: currentStepData.impactText });
+      
+      const fullReportLink = document.createElement("a");
+      fullReportLink.href = "#";
+      fullReportLink.className = "full-report-cue";
+      fullReportLink.setAttribute("role", "button");
+      fullReportLink.setAttribute("aria-label", "Vollständigen Bericht lesen");
+      fullReportLink.innerHTML = `
+        <span>Vollständigen Bericht lesen</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      `;
+      fullReportLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        openArticleDrawer();
+      });
+
+      explainerCard = createExplainerCard({
+        title: currentStepData.title,
+        impactTitle: currentStepData.impactTitle,
+        counter: `${currentStepData.step}/${loopSteps.length}`,
+        children: [impactPanel, fullReportLink]
+      });
+    }
+
+    loopContainer.appendChild(heroCardWrapper);
+    loopContainer.appendChild(paginationDots);
+    loopContainer.appendChild(explainerCard);
+  }
+
+  function animateSlideTransition(targetIndex, direction) {
+    loopContainer.style.opacity = "0";
+    loopContainer.style.transform = direction === "right" ? "translateX(-16px)" : "translateX(16px)";
+    
+    setTimeout(() => {
+      renderStep(targetIndex);
+      loopContainer.style.transform = direction === "right" ? "translateX(16px)" : "translateX(-16px)";
+      // Force layout
+      void loopContainer.offsetWidth;
+      loopContainer.style.opacity = "1";
+      loopContainer.style.transform = "translateX(0)";
+    }, 150);
+  }
 
   function triggerBounce(direction) {
     loopContainer.classList.remove("slide-bounce-left", "slide-bounce-right");
-    // Trigger reflow
     void loopContainer.offsetWidth;
-    
     if (direction === "left") {
       loopContainer.classList.add("slide-bounce-left");
-      showToast("Vorherige Karte (2/4) vorschau");
+      showToast("Erste Seite erreicht");
     } else {
       loopContainer.classList.add("slide-bounce-right");
-      showToast("Nächste Karte (4/4) vorschau");
+      showToast("Letzte Seite erreicht");
     }
-    
     setTimeout(() => {
       loopContainer.classList.remove("slide-bounce-left", "slide-bounce-right");
     }, 500);
   }
 
-  // 7. Create Pagination Dots
-  const paginationDots = createPaginationDots({
-    total: storyLoop.totalSteps,
-    activeIndex: storyLoop.step - 1 // 3rd card is activeIndex 2
-  });
-
-  // 8. Create Inset Impact Panel
-  const impactPanel = createInsetImpactPanel({ text: storyLoop.impactText });
-
-  // 9. Create "Open Full Report" Cue
-  const fullReportLink = document.createElement("a");
-  fullReportLink.href = storyLoop.fullReportUrl;
-  fullReportLink.className = "full-report-cue";
-  fullReportLink.setAttribute("role", "button");
-  fullReportLink.setAttribute("aria-label", "Vollständigen Bericht lesen");
-  fullReportLink.innerHTML = `
-    <span>Vollständigen Bericht lesen</span>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="6 9 12 15 18 9"></polyline>
-    </svg>
-  `;
-  fullReportLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    openArticleDrawer();
-  });
-
-  // 10. Create Explainer Card (contains headline, impact panel, full report link)
-  const explainerCard = createExplainerCard({
-    title: storyLoop.title,
-    impactTitle: storyLoop.impactTitle,
-    counter: `${storyLoop.step}/${storyLoop.totalSteps}`,
-    children: [impactPanel, fullReportLink]
-  });
-
-  // Assemble loop elements into container
-  loopContainer.appendChild(heroCardWrapper);
-  loopContainer.appendChild(paginationDots);
-  loopContainer.appendChild(explainerCard);
-
+  // Initial render of default step
+  renderStep(activeStepIndex);
   contentArea.appendChild(loopContainer);
 
   // Append elements to app shell
@@ -148,7 +294,7 @@ export function renderApp(mountNode) {
     }, 2000);
   }
 
-  // 12. Create Expanded Article Bottom Drawer (for stakeholder WOW factor)
+  // 12. Create Expanded Article Bottom Drawer
   const articleDrawer = document.createElement("div");
   articleDrawer.className = "article-drawer";
   articleDrawer.innerHTML = `
@@ -191,37 +337,36 @@ export function renderApp(mountNode) {
 
   // Drag-to-close and Scroll-up-to-close logic
   const drawerContent = articleDrawer.querySelector(".drawer-content");
-  let startY = 0;
-  let currentY = 0;
-  let isDragging = false;
+  let drawerStartY = 0;
+  let drawerCurrentY = 0;
+  let drawerIsDragging = false;
 
-  // Touch Drag-to-Close
   articleDrawer.addEventListener("touchstart", (e) => {
     if (drawerContent.scrollTop <= 0) {
-      startY = e.touches[0].clientY;
-      isDragging = true;
+      drawerStartY = e.touches[0].clientY;
+      drawerIsDragging = true;
       articleDrawer.style.transition = "none";
     }
   }, { passive: true });
 
   articleDrawer.addEventListener("touchmove", (e) => {
-    if (!isDragging) return;
-    currentY = e.touches[0].clientY;
-    const deltaY = currentY - startY;
+    if (!drawerIsDragging) return;
+    drawerCurrentY = e.touches[0].clientY;
+    const deltaY = drawerCurrentY - drawerStartY;
     if (deltaY > 0) {
       if (e.cancelable) e.preventDefault();
       articleDrawer.style.transform = `translateY(${deltaY}px)`;
     } else {
       articleDrawer.style.transform = "";
-      isDragging = false;
+      drawerIsDragging = false;
     }
   }, { passive: false });
 
   articleDrawer.addEventListener("touchend", () => {
-    if (!isDragging) return;
-    isDragging = false;
+    if (!drawerIsDragging) return;
+    drawerIsDragging = false;
     articleDrawer.style.transition = "";
-    const deltaY = currentY - startY;
+    const deltaY = drawerCurrentY - drawerStartY;
     if (deltaY > 100) {
       closeArticleDrawer();
     } else {
@@ -229,34 +374,32 @@ export function renderApp(mountNode) {
     }
   });
 
-  // Mouse Drag-to-Close
   articleDrawer.addEventListener("mousedown", (e) => {
-    // Avoid initiating drag on scrollbar click or close button
     if (e.target.closest(".btn-drawer-close") || e.target.closest(".drawer-content") && drawerContent.scrollTop > 0) {
       return;
     }
-    startY = e.clientY;
-    isDragging = true;
+    drawerStartY = e.clientY;
+    drawerIsDragging = true;
     articleDrawer.style.transition = "none";
   });
 
   window.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-    currentY = e.clientY;
-    const deltaY = currentY - startY;
+    if (!drawerIsDragging) return;
+    drawerCurrentY = e.clientY;
+    const deltaY = drawerCurrentY - drawerStartY;
     if (deltaY > 0) {
       articleDrawer.style.transform = `translateY(${deltaY}px)`;
     } else {
       articleDrawer.style.transform = "";
-      isDragging = false;
+      drawerIsDragging = false;
     }
   });
 
   window.addEventListener("mouseup", () => {
-    if (!isDragging) return;
-    isDragging = false;
+    if (!drawerIsDragging) return;
+    drawerIsDragging = false;
     articleDrawer.style.transition = "";
-    const deltaY = currentY - startY;
+    const deltaY = drawerCurrentY - drawerStartY;
     if (deltaY > 100) {
       closeArticleDrawer();
     } else {
@@ -264,7 +407,6 @@ export function renderApp(mountNode) {
     }
   });
 
-  // Scroll Up to Close (wheel event at top)
   drawerContent.addEventListener("wheel", (e) => {
     if (drawerContent.scrollTop <= 0 && e.deltaY < -15) {
       closeArticleDrawer();
@@ -280,6 +422,151 @@ export function renderApp(mountNode) {
   function closeArticleDrawer() {
     articleDrawer.classList.remove("is-open");
     articleDrawer.style.transform = "";
-    fullReportLink.focus();
+  }
+
+  // 13. Create Action Modal (Comment & Google Maps Integration)
+  const commentModal = document.createElement("div");
+  commentModal.className = "action-modal";
+  commentModal.innerHTML = `
+    <div class="modal-backdrop"></div>
+    <div class="modal-wrapper">
+      <div class="modal-header">
+        <h3 class="modal-title">Bericht einsenden</h3>
+        <button type="button" class="btn-modal-close" id="closeModalBtn" aria-label="Schließen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-lead-text">Markieren Sie die Gefahrenstelle und beschreiben Sie das Problem für das Weststadt-Team.</p>
+        
+        <!-- Interactive Dummy Map -->
+        <div class="map-container">
+          <svg viewBox="0 0 400 200" class="dummy-map-svg">
+            <rect width="100%" height="100%" fill="#E4E9EC" />
+            <!-- Grid lines for map vibe -->
+            <line x1="0" y1="50" x2="400" y2="50" stroke="#D1D9DD" stroke-width="1" />
+            <line x1="0" y1="100" x2="400" y2="100" stroke="#D1D9DD" stroke-width="1" />
+            <line x1="0" y1="150" x2="400" y2="150" stroke="#D1D9DD" stroke-width="1" />
+            <line x1="100" y1="0" x2="100" y2="200" stroke="#D1D9DD" stroke-width="1" />
+            <line x1="200" y1="0" x2="200" y2="200" stroke="#D1D9DD" stroke-width="1" />
+            <line x1="300" y1="0" x2="300" y2="200" stroke="#D1D9DD" stroke-width="1" />
+            
+            <!-- Roads -->
+            <path d="M 0,100 Q 200,80 400,100" stroke="#FFFFFF" stroke-width="16" fill="none" />
+            <path d="M 180,0 Q 200,100 220,200" stroke="#FFFFFF" stroke-width="16" fill="none" />
+            <!-- Dashed lines -->
+            <path d="M 0,100 Q 200,80 400,100" stroke="#D98A2B" stroke-width="2" stroke-dasharray="6,6" fill="none" />
+            <path d="M 180,0 Q 200,100 220,200" stroke="#D98A2B" stroke-width="2" stroke-dasharray="6,6" fill="none" />
+            
+            <!-- Map Pin -->
+            <g class="map-pin" transform="translate(200, 92)">
+              <ellipse cx="0" cy="14" rx="8" ry="3" fill="rgba(0,0,0,0.15)" />
+              <path d="M 0,14 C -12,14 -12,-2 0,-14 C 12,-2 12,14 0,14 Z" fill="#B64034" />
+              <circle cx="0" cy="0" r="4" fill="#FFFFFF" />
+            </g>
+          </svg>
+          <a href="https://maps.google.com/?q=49.1415,9.2078" target="_blank" rel="noopener" class="btn-map-link">
+            <span>Auf Google Maps anzeigen</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+
+        <form id="commentForm" class="modal-form">
+          <label for="commentInput" class="form-label">Beschreibung</label>
+          <textarea id="commentInput" class="form-textarea" placeholder="z.B. Schlagloch an der Einmündung, defekte Ampelschaltung..." required></textarea>
+          
+          <button type="submit" class="btn-submit-comment">Meldung abschicken</button>
+        </form>
+      </div>
+    </div>
+  `;
+  mountNode.appendChild(commentModal);
+
+  // Wire Modal events
+  const closeModalBtn = commentModal.querySelector("#closeModalBtn");
+  const modalBackdrop = commentModal.querySelector(".modal-backdrop");
+  const commentForm = commentModal.querySelector("#commentForm");
+
+  closeModalBtn.addEventListener("click", closeCommentModal);
+  modalBackdrop.addEventListener("click", closeCommentModal);
+  
+  commentForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const text = commentModal.querySelector("#commentInput").value;
+    if (text.trim()) {
+      showToast("Vielen Dank! Meldung wurde erfolgreich übermittelt.");
+      closeCommentModal();
+      commentForm.reset();
+    }
+  });
+
+  function openCommentModal() {
+    commentModal.classList.add("is-visible");
+  }
+
+  function closeCommentModal() {
+    commentModal.classList.remove("is-visible");
+  }
+
+  // 14. Fire Explosion Particle Generator
+  function triggerFireExplosion(event) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    // Center of the button
+    const originX = rect.left + rect.width / 2;
+    const originY = rect.top + rect.height / 2;
+
+    const particleContainer = document.createElement("div");
+    particleContainer.className = "explosion-container";
+    particleContainer.style.position = "absolute";
+    particleContainer.style.left = "0";
+    particleContainer.style.top = "0";
+    particleContainer.style.right = "0";
+    particleContainer.style.bottom = "0";
+    particleContainer.style.pointerEvents = "none";
+    particleContainer.style.zIndex = "300";
+    mountNode.appendChild(particleContainer);
+
+    const colors = ["#FF5722", "#FF9800", "#FFC107", "#E91E63", "#FFEB3B"];
+    const count = 36;
+
+    for (let i = 0; i < count; i++) {
+      const particle = document.createElement("div");
+      particle.className = "fire-particle";
+      
+      const angle = (i / count) * 2 * Math.PI + (Math.random() * 0.4 - 0.2);
+      const distance = 80 + Math.random() * 120;
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const size = 10 + Math.random() * 16;
+      
+      particle.style.left = `${originX - size / 2}px`;
+      particle.style.top = `${originY - size / 2}px`;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.setProperty("--dx", `${dx}px`);
+      particle.style.setProperty("--dy", `${dy}px`);
+      particle.style.setProperty("--color", color);
+      
+      particleContainer.appendChild(particle);
+    }
+
+    // Play visual screenshake
+    mountNode.classList.add("shake-screen");
+    setTimeout(() => {
+      mountNode.classList.remove("shake-screen");
+    }, 400);
+
+    // Clean up particles
+    setTimeout(() => {
+      particleContainer.remove();
+    }, 1000);
   }
 }
