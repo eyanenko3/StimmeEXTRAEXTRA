@@ -12,26 +12,26 @@ import { createInsetImpactPanel } from "../components/loops/inset-impact-panel.j
 const loopSteps = [
   {
     step: 1,
-    title: "Sanierungspläne für das Weststadt-Viertel vorgestellt",
-    category: "Planung",
-    status: "GEPLANT",
+    title: "Weststadt redevelopment plans presented",
+    category: "Planning",
+    status: "PLANNED",
     age: "3m ago",
     distance: "0.4 km away",
-    impactTitle: "WAS GEPLANT IST",
-    impactText: "Die Stadt plant, in den nächsten Monaten mehrere Straßen im Weststadt-Viertel umfassend zu erneuern und fahrradfreundlicher zu gestalten, um die Schulwegsicherheit zu erhöhen.",
-    imageUrl: "public/images/loops-bike-corridor.png",
+    impactTitle: "WHAT IS PLANNED",
+    impactText: "The city plans to comprehensively renovate several roads in the Weststadt district over the coming months to improve safety on school routes and make them more bicycle-friendly.",
+    imageUrl: "public/images/weststadt-planning.png",
     imageAlt: "Planning representation of Weststadt corridor"
   },
   {
     step: 2,
-    title: "Baustart an der zentralen Radverkehrsachse",
-    category: "Infrastruktur",
-    status: "IM BAU",
+    title: "Construction starts on central bicycle route",
+    category: "Infrastructure",
+    status: "IN PROGRESS",
     age: "2m ago",
     distance: "0.4 km away",
-    impactTitle: "AKTUELLE BEHINDERUNGEN",
-    impactText: "Die Bauarbeiten haben offiziell begonnen. Autofahrer müssen mit lokalen Umleitungen rechnen. Radfahrer werden vorübergehend über ruhige Nebenstraßen umgeleitet.",
-    imageUrl: "public/images/loops-bike-corridor.png",
+    impactTitle: "CURRENT DISRUPTIONS",
+    impactText: "Construction has officially started. Drivers should expect local detours. Cyclists are temporarily routed through quiet side streets.",
+    imageUrl: "public/images/bike-construction.png",
     imageAlt: "Construction works in Weststadt"
   },
   {
@@ -52,9 +52,9 @@ const loopSteps = [
     title: "Know another road that needs fixing? File a report.",
     category: "Community",
     status: "DO NEXT",
-    age: "Aktiv",
+    age: "Active",
     distance: "Heilbronn",
-    imageUrl: "public/images/loops-bike-corridor.png",
+    imageUrl: "public/images/damaged-road.png",
     imageAlt: "Community action photo of local roads"
   }
 ];
@@ -77,19 +77,19 @@ export function renderApp(mountNode) {
     isBookmarked,
     pills: [resolvedPill, categoryPill],
     onBack: () => {
-      showToast("Navigate back simulation");
+      showToast("Back navigation simulation");
     },
     onBookmark: (e) => {
       isBookmarked = !isBookmarked;
       localStorage.setItem("loops_bookmarked", isBookmarked.toString());
       const btn = e.currentTarget;
       btn.classList.toggle("is-active", isBookmarked);
-      showToast(isBookmarked ? "Beitrag gemerkt" : "Lesezeichen entfernt");
+      showToast(isBookmarked ? "Bookmark saved" : "Bookmark removed");
     },
     onShare: () => {
       navigator.clipboard.writeText(window.location.href)
-        .then(() => showToast("Link in die Zwischenablage kopiert"))
-        .catch(() => showToast("Teilen fehlgeschlagen"));
+        .then(() => showToast("Link copied to clipboard"))
+        .catch(() => showToast("Sharing failed"));
     }
   });
 
@@ -260,10 +260,10 @@ export function renderApp(mountNode) {
     void scrollContainer.offsetWidth;
     if (direction === "left") {
       scrollContainer.classList.add("slide-bounce-left");
-      showToast("Erste Seite erreicht");
+      showToast("First page reached");
     } else {
       scrollContainer.classList.add("slide-bounce-right");
-      showToast("Letzte Seite erreicht");
+      showToast("Last page reached");
     }
     setTimeout(() => {
       scrollContainer.classList.remove("slide-bounce-left", "slide-bounce-right");
@@ -306,7 +306,7 @@ export function renderApp(mountNode) {
   articleDrawer.innerHTML = `
     <div class="drawer-header">
       <div class="drawer-drag-handle"></div>
-      <button type="button" class="btn-drawer-close" aria-label="Schließen">
+      <button type="button" class="btn-drawer-close" aria-label="Close">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -315,25 +315,25 @@ export function renderApp(mountNode) {
     </div>
     <div class="drawer-content">
       <div class="drawer-meta">
-        <span class="drawer-category">LOKALPOLITIK</span>
+        <span class="drawer-category">LOCAL GOVERNMENT</span>
         <span class="drawer-divider">•</span>
         <span class="drawer-time">1d ago</span>
       </div>
-      <h1 class="drawer-title">Fahrradkorridor Weststadt: Sanierung und Sicherheits-Upgrade fertiggestellt</h1>
-      <p class="drawer-lead">Die Stadtverwaltung Heilbronn hat die umfassenden Sanierungsarbeiten an der zentralen Radverkehrsachse Weststadt abgeschlossen. <mark class="editorial-highlight">Das Millionenprojekt soll vor allem Schulwege sicherer machen.</mark></p>
+      <h1 class="drawer-title">Weststadt Bicycle Corridor: Repair and Safety Upgrade Completed</h1>
+      <p class="drawer-lead">The Heilbronn city administration has completed extensive renovation work on the central Weststadt bicycle route. <mark class="editorial-highlight">The million-euro project is primarily aimed at making school routes safer.</mark></p>
       
       <img src="${storyLoop.imageUrl}" alt="${storyLoop.imageAlt}" class="drawer-image" />
       
-      <p class="drawer-body">Nach fast viermonatiger Bauzeit ist die vielbefahrene Weststadt-Route wieder uneingeschränkt für den Verkehr freigegeben. Neben einem lärmoptimierten, glatten Asphaltbelag wurden auf einer Länge von rund 1,8 Kilometern breitere, farblich abgesetzte Schutzstreifen aufgetragen.</p>
+      <p class="drawer-body">After nearly four months of construction, the busy Weststadt route is fully open to traffic. In addition to a noise-optimized, smooth asphalt surface, wider, color-contrasted protective lanes have been applied along a length of approximately 1.8 kilometers.</p>
       
-      <p class="drawer-body">„Das Projekt zeigt, wie moderne Nahmobilität in unserer Region aussehen kann“, so Oberbürgermeister Harry Mergel bei der offiziellen Freigabe. <mark class="editorial-highlight">Besonders im Fokus stand die Erhöhung der passiven Sicherheit an unübersichtlichen Einmündungen.</mark> Hier wurden reflektierende Markierungselemente und optimierte Ampelschaltungen installiert.</p>
+      <p class="drawer-body">“The project shows what modern local mobility can look like in our region,” said Mayor Harry Mergel at the official opening. <mark class="editorial-highlight">The focus was particularly on increasing passive safety at complex intersections</mark>, where reflective marking elements and optimized traffic light phases were installed.</p>
       
       <div class="drawer-quote-panel">
         <span class="quote-symbol">„</span>
-        <p class="quote-text">Vor allem die verbesserten Abflüsse an den Fahrbahnrändern sorgen dafür, dass Radfahrer auch bei starkem Regen nicht mehr durch tiefe Pfützen gefährdet werden.</p>
+        <p class="quote-text">Most of all, the improved drainage at the road shoulders ensures that cyclists are no longer endangered by deep puddles during heavy rain.</p>
       </div>
 
-      <p class="drawer-body"><mark class="editorial-highlight">Die Kosten belaufen sich auf rund 820.000 Euro</mark>, wovon ein Großteil aus Mitteln des Landes-Verkehrsfinanzierungsgesetzes gefördert wurde. Pendler und Anwohner äußerten sich in ersten Befragungen positiv über den neuen Fahrkomfort.</p>
+      <p class="drawer-body"><mark class="editorial-highlight">The costs amount to around €820,000</mark>, the majority of which was funded by the state's transport financing act. Commuters and residents expressed positive feedback about the new riding comfort in initial surveys.</p>
     </div>
   `;
   mountNode.appendChild(articleDrawer);
@@ -437,8 +437,8 @@ export function renderApp(mountNode) {
     <div class="modal-backdrop"></div>
     <div class="modal-wrapper">
       <div class="modal-header">
-        <h3 class="modal-title">Bericht einsenden</h3>
-        <button type="button" class="btn-modal-close" id="closeModalBtn" aria-label="Schließen">
+        <h3 class="modal-title">Submit Report</h3>
+        <button type="button" class="btn-modal-close" id="closeModalBtn" aria-label="Close">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -446,7 +446,7 @@ export function renderApp(mountNode) {
         </button>
       </div>
       <div class="modal-body">
-        <p class="modal-lead-text">Markieren Sie die Gefahrenstelle und beschreiben Sie das Problem für das Weststadt-Team.</p>
+        <p class="modal-lead-text">Mark the hazard area and describe the issue for the Weststadt team.</p>
         
         <!-- Interactive Dummy Map -->
         <div class="map-container">
@@ -475,7 +475,7 @@ export function renderApp(mountNode) {
             </g>
           </svg>
           <a href="https://maps.google.com/?q=49.1415,9.2078" target="_blank" rel="noopener" class="btn-map-link">
-            <span>Auf Google Maps anzeigen</span>
+            <span>View on Google Maps</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
               <polyline points="15 3 21 3 21 9"></polyline>
@@ -485,10 +485,10 @@ export function renderApp(mountNode) {
         </div>
 
         <form id="commentForm" class="modal-form">
-          <label for="commentInput" class="form-label">Beschreibung</label>
-          <textarea id="commentInput" class="form-textarea" placeholder="z.B. Schlagloch an der Einmündung, defekte Ampelschaltung..." required></textarea>
+          <label for="commentInput" class="form-label">Description</label>
+          <textarea id="commentInput" class="form-textarea" placeholder="e.g., pothole at the intersection, broken traffic light..." required></textarea>
           
-          <button type="submit" class="btn-submit-comment">Meldung abschicken</button>
+          <button type="submit" class="btn-submit-comment">Submit Report</button>
         </form>
       </div>
     </div>
@@ -507,7 +507,7 @@ export function renderApp(mountNode) {
     e.preventDefault();
     const text = commentModal.querySelector("#commentInput").value;
     if (text.trim()) {
-      showToast("Vielen Dank! Meldung wurde erfolgreich übermittelt.");
+      showToast("Thank you! Your report has been submitted.");
       closeCommentModal();
       commentForm.reset();
     }
