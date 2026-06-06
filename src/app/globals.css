@@ -149,10 +149,6 @@ a:focus:not(:focus-visible),
   gap: 12px;
 }
 
-.slide-dots-spacer {
-  height: 22px;
-  flex-shrink: 0;
-}
 
 /* Slide animation classes */
 .slide-bounce-left {
@@ -388,18 +384,13 @@ a:focus:not(:focus-visible),
   transform: translateX(4px);
 }
 
-/* Pagination Dots Styles (Stationary) */
+/* Pagination Dots Styles */
 .loops-pagination-dots {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(16px + 290px + 10px);
-  z-index: 10;
-  pointer-events: auto;
+  margin: 4px 0;
   flex-shrink: 0;
 }
 

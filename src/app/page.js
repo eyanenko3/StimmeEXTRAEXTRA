@@ -93,23 +93,9 @@ export function renderApp(mountNode) {
     }
   });
 
-  // Main Content Area wrapper (relative to allow absolute positioning of dots)
+  // Main Content Area wrapper
   const contentArea = document.createElement("main");
   contentArea.className = "app-content";
-  contentArea.style.position = "relative";
-
-  // Create the stationary pagination dots
-  const paginationDots = createPaginationDots({
-    total: loopSteps.length,
-    activeIndex: activeStepIndex,
-    onChange: (index) => {
-      const slideWidth = scrollContainer.clientWidth;
-      scrollContainer.scrollTo({
-        left: index * slideWidth,
-        behavior: "smooth"
-      });
-    }
-  });
 
   // Create the horizontal scroll container
   const scrollContainer = document.createElement("div");
@@ -225,8 +211,20 @@ export function renderApp(mountNode) {
       });
     }
 
+    // Create pagination dots for this slide
+    const slidePaginationDots = createPaginationDots({
+      total: loopSteps.length,
+      activeIndex: index,
+      onChange: (targetIdx) => {
+        scrollContainer.scrollTo({
+          left: targetIdx * scrollContainer.clientWidth,
+          behavior: "smooth"
+        });
+      }
+    });
+
     slide.appendChild(heroCardWrapper);
-    slide.appendChild(dotsSpacer);
+    slide.appendChild(slidePaginationDots);
     slide.appendChild(explainerCard);
     scrollContainer.appendChild(slide);
   });
@@ -245,11 +243,6 @@ export function renderApp(mountNode) {
       topBarPillsContainer.appendChild(categoryPill);
     }
 
-    // Update Pagination Dots active class
-    const dots = paginationDots.querySelectorAll(".pagination-dot");
-    dots.forEach((dot, dotIdx) => {
-      dot.classList.toggle("is-active", dotIdx === index);
-    });
   }
 
   // Scroll event listener to track active step
@@ -284,7 +277,6 @@ export function renderApp(mountNode) {
   }, 50);
 
   contentArea.appendChild(scrollContainer);
-  contentArea.appendChild(paginationDots); // Add pagination dots as stationary element
 
 
   // Append elements to app shell
