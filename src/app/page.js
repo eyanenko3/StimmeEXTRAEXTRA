@@ -53,7 +53,7 @@ const allStories = [
         age: "1h ago",
         distance: "1.2 km away",
         impactTitle: "YOUR IMPACT",
-        impactText: "Get ready for an epic summer weekend! If you're a student, make sure to grab those discounted tickets early before they sell out.",
+        impactText: "Get ready for an epic summer weekend! Students with a valid ID can claim a 30% discount on weekend passes.",
         imageUrl: "../public/images/mystery_question_mark.png",
         imageAlt: "Question mark"
       },

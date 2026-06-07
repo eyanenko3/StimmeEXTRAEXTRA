@@ -53,7 +53,7 @@ const allStories = [
         age: "vor 1 Std.",
         distance: "1,2 km entfernt",
         impactTitle: "DEINE MEINUNG",
-        impactText: "Mach dich bereit für ein episches Sommerwochenende! Wenn du studierst, sichere dir frühzeitig die vergünstigten Tickets, bevor sie ausverkauft sind.",
+        impactText: "Mach dich bereit für ein episches Sommerwochenende! Studierende mit gültigem Ausweis erhalten 30% Rabatt auf Wochenendtickets.",
         imageUrl: "../public/images/mystery_question_mark.png",
         imageAlt: "Fragezeichen"
       },
