@@ -39,25 +39,13 @@ const allStories = [
         status: "BREAKING",
         age: "1h ago",
         distance: "1.2 km away",
-        impactTitle: "HEADLINE",
-        impactText: "",
-        imageUrl: "public/images/heilbronn_beats_festival.png",
-        imageAlt: "Concert crowd"
-      },
-      {
-        step: 2,
-        title: "Heilbronn Beats: Massive Open-Air Festival Announced for Neckar Park",
-        category: "Events",
-        status: "BREAKING",
-        age: "1h ago",
-        distance: "1.2 km away",
-        impactTitle: "SUMMARY",
+        impactTitle: "HEADLINE & SUMMARY",
         impactText: "A massive new electronic and hip-hop music festival is coming to Neckar Park this summer, featuring international headliners and a massive 30% student discount.",
         imageUrl: "public/images/heilbronn_beats_festival.png",
         imageAlt: "Concert crowd"
       },
       {
-        step: 3,
+        step: 2,
         isFlipCard: true,
         title: "What it means for you",
         category: "Events",
@@ -70,7 +58,7 @@ const allStories = [
         imageAlt: "Question mark"
       },
       {
-        step: 4,
+        step: 3,
         isDoNext: true,
         title: "Check out the festival lineup",
         category: "Events",
@@ -113,25 +101,13 @@ const allStories = [
         status: "UPDATE",
         age: "3h ago",
         distance: "City Center",
-        impactTitle: "HEADLINE",
-        impactText: "",
-        imageUrl: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
-        imageAlt: "Skatepark"
-      },
-      {
-        step: 2,
-        title: "City Council Votes to Demolish Beloved Downtown Skatepark",
-        category: "Society",
-        status: "UPDATE",
-        age: "3h ago",
-        distance: "City Center",
-        impactTitle: "SUMMARY",
+        impactTitle: "HEADLINE & SUMMARY",
         impactText: "The beloved downtown skatepark is set to be demolished to build luxury apartments, sparking massive outrage and protests from local youth.",
         imageUrl: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
         imageAlt: "Skatepark"
       },
       {
-        step: 3,
+        step: 2,
         isFlipCard: true,
         title: "What it means for you",
         category: "Society",
@@ -144,7 +120,7 @@ const allStories = [
         imageAlt: "Question mark"
       },
       {
-        step: 4,
+        step: 3,
         isDoNext: true,
         title: "Join the conversation about the skatepark",
         category: "Society",
@@ -183,25 +159,13 @@ const allStories = [
         status: "NEW",
         age: "10m ago",
         distance: "Innovation Park",
-        impactTitle: "HEADLINE",
-        impactText: "",
-        imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
-        imageAlt: "Tech campus"
-      },
-      {
-        step: 2,
-        title: "Major Tech Hub Opens in Heilbronn: 500 New Entry-Level Jobs",
-        category: "Jobs",
-        status: "NEW",
-        age: "10m ago",
-        distance: "Innovation Park",
-        impactTitle: "SUMMARY",
+        impactTitle: "HEADLINE & SUMMARY",
         impactText: "A massive new AI innovation campus has opened in Heilbronn, immediately posting 500 entry-level jobs and paid internships for local young talent.",
         imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
         imageAlt: "Tech campus"
       },
       {
-        step: 3,
+        step: 2,
         isFlipCard: true,
         title: "What it means for you",
         category: "Jobs",
@@ -214,7 +178,7 @@ const allStories = [
         imageAlt: "Question mark"
       },
       {
-        step: 4,
+        step: 3,
         isDoNext: true,
         title: "Check out the new job openings",
         category: "Jobs",
@@ -258,25 +222,13 @@ const allStories = [
         status: "Weststadt Bicycle...",
         age: "3m ago",
         distance: "0.4 km away",
-        impactTitle: "HEADLINE",
-        impactText: "",
+        impactTitle: "HEADLINE & SUMMARY",
+        impactText: "Construction has officially started. Drivers should expect local detours. Cyclists are temporarily routed through quiet side streets.",
         imageUrl: "public/images/loops-bike-corridor.png",
         imageAlt: "Planning representation of Weststadt corridor"
       },
       {
         step: 2,
-        title: "Weststadt Bicycle Corridor: Repair and Safety Upgrade Completed",
-        category: "Infrastructure",
-        status: "Weststadt Bicycle...",
-        age: "2m ago",
-        distance: "0.4 km away",
-        impactTitle: "SUMMARY",
-        impactText: "Construction has officially started. Drivers should expect local detours. Cyclists are temporarily routed through quiet side streets.",
-        imageUrl: "public/images/loops-bike-corridor.png",
-        imageAlt: "Construction works in Weststadt"
-      },
-      {
-        step: 3,
         isFlipCard: true,
         title: "What it means for you?",
         category: "Infrastructure",
@@ -289,7 +241,7 @@ const allStories = [
         imageAlt: "Mystery Question Mark"
       },
       {
-        step: 4,
+        step: 3,
         isDoNext: true,
         title: "Weststadt Bicycle Corridor: Repair and Safety Upgrade Completed",
         category: "Infrastructure",
@@ -328,25 +280,13 @@ const allStories = [
         status: "BREAKING",
         age: "1h ago",
         distance: "Citywide",
-        impactTitle: "HEADLINE",
-        impactText: "",
-        imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80",
-        imageAlt: "Cyclists in Heilbronn"
-      },
-      {
-        step: 2,
-        title: "Stadtradeln 2026: Heilbronn aims for new record in Climate Action",
-        category: "Climate",
-        status: "BREAKING",
-        age: "1h ago",
-        distance: "Citywide",
-        impactTitle: "SUMMARY",
+        impactTitle: "HEADLINE & SUMMARY",
         impactText: "The city has launched its annual Stadtradeln campaign. Citizens are encouraged to cycle to work to save CO2 emissions and win prizes.",
         imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80",
         imageAlt: "Cyclists in Heilbronn"
       },
       {
-        step: 3,
+        step: 2,
         isFlipCard: true,
         title: "What it means for you?",
         category: "Climate",
@@ -359,7 +299,7 @@ const allStories = [
         imageAlt: "Mystery Question Mark"
       },
       {
-        step: 4,
+        step: 3,
         isDoNext: true,
         title: "Stadtradeln 2026: Heilbronn aims for new record in Climate Action",
         category: "Climate",
@@ -398,25 +338,13 @@ const allStories = [
         status: "UPDATE",
         age: "2h ago",
         distance: "Region",
-        impactTitle: "HEADLINE",
-        impactText: "",
-        imageUrl: "public/images/water_shortage_drought.png",
-        imageAlt: "Water shortage"
-      },
-      {
-        step: 2,
-        title: "Landkreis warns of water shortages: Appeals for conservation",
-        category: "Local Gov",
-        status: "UPDATE",
-        age: "2h ago",
-        distance: "Region",
-        impactTitle: "SUMMARY",
+        impactTitle: "HEADLINE & SUMMARY",
         impactText: "Due to ongoing dry periods, the Landkreis Heilbronn has issued an official warning urging residents to save water.",
         imageUrl: "public/images/water_shortage_drought.png",
         imageAlt: "Water shortage"
       },
       {
-        step: 3,
+        step: 2,
         isFlipCard: true,
         title: "What it means for you?",
         category: "Local Gov",
@@ -429,7 +357,7 @@ const allStories = [
         imageAlt: "Mystery Question Mark"
       },
       {
-        step: 4,
+        step: 3,
         isDoNext: true,
         title: "Landkreis warns of water shortages: Appeals for conservation",
         category: "Local Gov",
@@ -659,7 +587,7 @@ export function renderApp(mountNode) {
               </span>
               <span class="explainer-header-title">DO NEXT</span>
             </div>
-            <div class="explainer-header-right">4/4</div>
+            <div class="explainer-header-right">${loopSteps.length}/${loopSteps.length}</div>
           </div>
           <h2 class="explainer-headline">${stepData.title}</h2>
           
@@ -1256,7 +1184,11 @@ export function renderApp(mountNode) {
       <div class="modal-body">
         <p class="modal-lead-text" id="emailModalText">Enter your email for more info.</p>
         <form id="emailForm" class="modal-form">
-          <label for="emailInput" class="form-label">Email Address</label>
+          <label for="firstNameInput" class="form-label">First Name</label>
+          <input type="text" id="firstNameInput" class="form-textarea" style="height: 48px; resize: none; padding: 12px; border-radius: 12px; border: 1px solid var(--border-soft); background-color: var(--bg-surface); font-family: var(--font-body); font-size: 15px;" placeholder="Jane" required />
+          <label for="lastNameInput" class="form-label" style="margin-top: 8px;">Last Name</label>
+          <input type="text" id="lastNameInput" class="form-textarea" style="height: 48px; resize: none; padding: 12px; border-radius: 12px; border: 1px solid var(--border-soft); background-color: var(--bg-surface); font-family: var(--font-body); font-size: 15px;" placeholder="Doe" required />
+          <label for="emailInput" class="form-label" style="margin-top: 8px;">Email Address</label>
           <input type="email" id="emailInput" class="form-textarea" style="height: 48px; resize: none; padding: 12px; border-radius: 12px; border: 1px solid var(--border-soft); background-color: var(--bg-surface); font-family: var(--font-body); font-size: 15px;" placeholder="your.email@example.com" required />
           <button type="submit" class="btn-submit-comment" style="margin-top: 12px;">Submit</button>
         </form>

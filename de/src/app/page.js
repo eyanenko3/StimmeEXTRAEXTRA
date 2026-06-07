@@ -39,25 +39,13 @@ const allStories = [
         status: "EILMELDUNG",
         age: "vor 1 Std.",
         distance: "1,2 km entfernt",
-        impactTitle: "SCHLAGZEILE",
-        impactText: "",
-        imageUrl: "../public/images/heilbronn_beats_festival.png",
-        imageAlt: "Konzertmenge"
-      },
-      {
-        step: 2,
-        title: "Heilbronn Beats: Riesiges Open-Air-Festival im Neckarpark angekündigt",
-        category: "Events",
-        status: "EILMELDUNG",
-        age: "vor 1 Std.",
-        distance: "1,2 km entfernt",
-        impactTitle: "ZUSAMMENFASSUNG",
+        impactTitle: "SCHLAGZEILE & ZUSAMMENFASSUNG",
         impactText: "Ein massives neues Electro- und Hip-Hop-Festival kommt diesen Sommer in den Neckarpark, mit internationalen Headlinern und einem riesigen Studentenrabatt.",
         imageUrl: "../public/images/heilbronn_beats_festival.png",
         imageAlt: "Konzertmenge"
       },
       {
-        step: 3,
+        step: 2,
         isFlipCard: true,
         title: "Was bedeutet das für dich?",
         category: "Events",
@@ -70,7 +58,7 @@ const allStories = [
         imageAlt: "Fragezeichen"
       },
       {
-        step: 4,
+        step: 3,
         isDoNext: true,
         title: "Schau dir das Festival-Line-up an",
         category: "Events",
@@ -113,25 +101,13 @@ const allStories = [
         status: "AKTUALISIERUNG",
         age: "vor 3 Std.",
         distance: "Innenstadt",
-        impactTitle: "SCHLAGZEILE",
-        impactText: "",
-        imageUrl: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
-        imageAlt: "Skatepark"
-      },
-      {
-        step: 2,
-        title: "Stadtrat stimmt für Abriss des beliebten Skateparks in der Innenstadt",
-        category: "Gesellschaft",
-        status: "AKTUALISIERUNG",
-        age: "vor 3 Std.",
-        distance: "Innenstadt",
-        impactTitle: "ZUSAMMENFASSUNG",
+        impactTitle: "SCHLAGZEILE & ZUSAMMENFASSUNG",
         impactText: "Der beliebte Skatepark in der Innenstadt soll abgerissen werden, um Luxuswohnungen zu bauen, was bei der lokalen Jugend große Empörung und Proteste auslöst.",
         imageUrl: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
         imageAlt: "Skatepark"
       },
       {
-        step: 3,
+        step: 2,
         isFlipCard: true,
         title: "Was bedeutet das für dich?",
         category: "Gesellschaft",
@@ -144,7 +120,7 @@ const allStories = [
         imageAlt: "Fragezeichen"
       },
       {
-        step: 4,
+        step: 3,
         isDoNext: true,
         title: "Beteilige dich an der Diskussion über den Skatepark",
         category: "Gesellschaft",
@@ -183,25 +159,13 @@ const allStories = [
         status: "NEU",
         age: "vor 10 Min.",
         distance: "Innovationspark",
-        impactTitle: "SCHLAGZEILE",
-        impactText: "",
-        imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
-        imageAlt: "Tech-Campus"
-      },
-      {
-        step: 2,
-        title: "Großer Tech-Hub in Heilbronn eröffnet: 500 neue Einstiegsjobs",
-        category: "Jobs",
-        status: "NEU",
-        age: "vor 10 Min.",
-        distance: "Innovationspark",
-        impactTitle: "ZUSAMMENFASSUNG",
+        impactTitle: "SCHLAGZEILE & ZUSAMMENFASSUNG",
         impactText: "Ein riesiger neuer KI-Innovationscampus wurde in Heilbronn eröffnet und bietet sofort 500 Einstiegsjobs und bezahlte Praktika für lokale junge Talente an.",
         imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
         imageAlt: "Tech-Campus"
       },
       {
-        step: 3,
+        step: 2,
         isFlipCard: true,
         title: "Was bedeutet das für dich?",
         category: "Jobs",
@@ -214,7 +178,7 @@ const allStories = [
         imageAlt: "Fragezeichen"
       },
       {
-        step: 4,
+        step: 3,
         isDoNext: true,
         title: "Sieh dir die neuen Stellenangebote an",
         category: "Jobs",
@@ -258,25 +222,13 @@ const allStories = [
         status: "Weststadt Radweg...",
         age: "vor 3 Min.",
         distance: "0,4 km entfernt",
-        impactTitle: "SCHLAGZEILE",
-        impactText: "",
+        impactTitle: "SCHLAGZEILE & ZUSAMMENFASSUNG",
+        impactText: "Die Bauarbeiten haben offiziell begonnen. Autofahrer müssen mit lokalen Umleitungen rechnen. Radfahrer werden vorübergehend durch ruhige Seitenstraßen geleitet.",
         imageUrl: "../public/images/loops-bike-corridor.png",
         imageAlt: "Planungsdarstellung des Weststadt-Korridors"
       },
       {
         step: 2,
-        title: "Weststadt-Radweg: Sanierung und Sicherheitsausbau abgeschlossen",
-        category: "Infrastruktur",
-        status: "Weststadt Radweg...",
-        age: "vor 2 Min.",
-        distance: "0,4 km entfernt",
-        impactTitle: "ZUSAMMENFASSUNG",
-        impactText: "Die Bauarbeiten haben offiziell begonnen. Autofahrer müssen mit lokalen Umleitungen rechnen. Radfahrer werden vorübergehend durch ruhige Seitenstraßen geleitet.",
-        imageUrl: "../public/images/loops-bike-corridor.png",
-        imageAlt: "Bauarbeiten in der Weststadt"
-      },
-      {
-        step: 3,
         isFlipCard: true,
         title: "Was bedeutet das für dich?",
         category: "Infrastruktur",
@@ -289,7 +241,7 @@ const allStories = [
         imageAlt: "Fragezeichen"
       },
       {
-        step: 4,
+        step: 3,
         isDoNext: true,
         title: "Weststadt-Radweg: Sanierung und Sicherheitsausbau abgeschlossen",
         category: "Infrastruktur",
@@ -328,25 +280,13 @@ const allStories = [
         status: "EILMELDUNG",
         age: "vor 1 Std.",
         distance: "Stadtweit",
-        impactTitle: "SCHLAGZEILE",
-        impactText: "",
-        imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80",
-        imageAlt: "Radfahrer in Heilbronn"
-      },
-      {
-        step: 2,
-        title: "Stadtradeln 2026: Heilbronn will neuen Rekord im Klimaschutz aufstellen",
-        category: "Klima",
-        status: "EILMELDUNG",
-        age: "vor 1 Std.",
-        distance: "Stadtweit",
-        impactTitle: "ZUSAMMENFASSUNG",
+        impactTitle: "SCHLAGZEILE & ZUSAMMENFASSUNG",
         impactText: "Die Stadt hat ihre jährliche Stadtradeln-Kampagne gestartet. Bürger werden ermutigt, mit dem Rad zur Arbeit zu fahren, um CO2 zu sparen und Preise zu gewinnen.",
         imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80",
         imageAlt: "Radfahrer in Heilbronn"
       },
       {
-        step: 3,
+        step: 2,
         isFlipCard: true,
         title: "Was bedeutet das für dich?",
         category: "Klima",
@@ -359,7 +299,7 @@ const allStories = [
         imageAlt: "Fragezeichen"
       },
       {
-        step: 4,
+        step: 3,
         isDoNext: true,
         title: "Stadtradeln 2026: Heilbronn will neuen Rekord im Klimaschutz aufstellen",
         category: "Klima",
@@ -398,25 +338,13 @@ const allStories = [
         status: "AKTUALISIERUNG",
         age: "vor 2 Std.",
         distance: "Region",
-        impactTitle: "SCHLAGZEILE",
-        impactText: "",
-        imageUrl: "../public/images/water_shortage_drought.png",
-        imageAlt: "Wasserknappheit"
-      },
-      {
-        step: 2,
-        title: "Landkreis warnt vor Wasserknappheit: Appell zum Sparen",
-        category: "Kommunalpolitik",
-        status: "AKTUALISIERUNG",
-        age: "vor 2 Std.",
-        distance: "Region",
-        impactTitle: "ZUSAMMENFASSUNG",
+        impactTitle: "SCHLAGZEILE & ZUSAMMENFASSUNG",
         impactText: "Aufgrund anhaltender Trockenperioden hat der Landkreis Heilbronn eine offizielle Warnung herausgegeben und die Bevölkerung zum Wassersparen aufgerufen.",
         imageUrl: "../public/images/water_shortage_drought.png",
         imageAlt: "Wasserknappheit"
       },
       {
-        step: 3,
+        step: 2,
         isFlipCard: true,
         title: "Was bedeutet das für dich?",
         category: "Kommunalpolitik",
@@ -429,7 +357,7 @@ const allStories = [
         imageAlt: "Fragezeichen"
       },
       {
-        step: 4,
+        step: 3,
         isDoNext: true,
         title: "Landkreis warnt vor Wasserknappheit: Appell zum Sparen",
         category: "Kommunalpolitik",
@@ -659,7 +587,7 @@ export function renderApp(mountNode) {
               </span>
               <span class="explainer-header-title">ALS NÄCHSTES</span>
             </div>
-            <div class="explainer-header-right">4/4</div>
+            <div class="explainer-header-right">${loopSteps.length}/${loopSteps.length}</div>
           </div>
           <h2 class="explainer-headline">${stepData.title}</h2>
           
@@ -1256,7 +1184,11 @@ export function renderApp(mountNode) {
       <div class="modal-body">
         <p class="modal-lead-text" id="emailModalText">E-Mail-Adresse für weitere Infos eingeben.</p>
         <form id="emailForm" class="modal-form">
-          <label for="emailInput" class="form-label">E-Mail-Adresse</label>
+          <label for="firstNameInput" class="form-label">Vorname</label>
+          <input type="text" id="firstNameInput" class="form-textarea" style="height: 48px; resize: none; padding: 12px; border-radius: 12px; border: 1px solid var(--border-soft); background-color: var(--bg-surface); font-family: var(--font-body); font-size: 15px;" placeholder="Max" required />
+          <label for="lastNameInput" class="form-label" style="margin-top: 8px;">Nachname</label>
+          <input type="text" id="lastNameInput" class="form-textarea" style="height: 48px; resize: none; padding: 12px; border-radius: 12px; border: 1px solid var(--border-soft); background-color: var(--bg-surface); font-family: var(--font-body); font-size: 15px;" placeholder="Mustermann" required />
+          <label for="emailInput" class="form-label" style="margin-top: 8px;">E-Mail-Adresse</label>
           <input type="email" id="emailInput" class="form-textarea" style="height: 48px; resize: none; padding: 12px; border-radius: 12px; border: 1px solid var(--border-soft); background-color: var(--bg-surface); font-family: var(--font-body); font-size: 15px;" placeholder="deine.email@beispiel.de" required />
           <button type="submit" class="btn-submit-comment" style="margin-top: 12px;">Absenden</button>
         </form>
