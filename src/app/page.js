@@ -627,12 +627,16 @@ export function renderApp(mountNode) {
       fullReportLink.setAttribute("role", "button");
       fullReportLink.setAttribute("aria-label", "Read the full article");
       fullReportLink.innerHTML = `
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+        <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 12px; width: 100%;">
           <svg class="swipe-up-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="17 11 12 6 7 11"></polyline>
             <polyline points="17 18 12 13 7 18"></polyline>
           </svg>
-          <span style="font-size: 15px; font-weight: 500;">Swipe up to read the full article</span>
+          <span style="font-size: 16px; font-weight: 600; text-align: center;">Swipe up to read the full article</span>
+          <svg class="swipe-up-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="17 11 12 6 7 11"></polyline>
+            <polyline points="17 18 12 13 7 18"></polyline>
+          </svg>
         </div>
       `;
       fullReportLink.addEventListener("click", (e) => {

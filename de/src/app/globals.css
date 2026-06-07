@@ -1349,9 +1349,9 @@ mark.editorial-highlight {
 }
 
 .swipe-up-arrow {
-  width: 44px;
-  height: 44px;
-  animation: swipeBounce 2s infinite ease-in-out;
+  width: 56px;
+  height: 56px;
+  animation: swipeBounce 2s ease-in-out 4 forwards;
   color: var(--text-primary);
 }
 
