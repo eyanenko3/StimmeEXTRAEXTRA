@@ -1347,6 +1347,38 @@ mark.editorial-highlight {
   margin-bottom: 4px;
 }
 
+.full-report-cue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+  background-color: transparent;
+  border: none;
+  color: var(--text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.swipe-up-arrow {
+  width: 32px;
+  height: 32px;
+  animation: swipeBounce 2s infinite ease-in-out;
+  color: var(--text-primary);
+}
+
+@keyframes swipeBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-12px);
+  }
+  60% {
+    transform: translateY(-6px);
+  }
+}
+
 .related-link-item {
   display: flex;
   align-items: center;

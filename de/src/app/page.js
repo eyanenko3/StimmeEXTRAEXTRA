@@ -627,9 +627,8 @@ export function renderApp(mountNode) {
       fullReportLink.setAttribute("role", "button");
       fullReportLink.setAttribute("aria-label", "Den vollständigen Artikel lesen");
       fullReportLink.innerHTML = `
-        <span>Nach oben wischen für den ganzen Artikel</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="6 9 12 15 18 9"></polyline>
+        <svg class="swipe-up-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="18 15 12 9 6 15"></polyline>
         </svg>
       `;
       fullReportLink.addEventListener("click", (e) => {
