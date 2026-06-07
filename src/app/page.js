@@ -878,7 +878,6 @@ export function renderApp(mountNode) {
                 `<span class="feed-badge-urgent" ${story.status === "UPDATE" ? 'style="background-color: #D98A2B"' : ''}>${story.status}</span>` : ''}
               <span class="feed-badge-cat">${story.category}</span>
             </div>
-            </div>
           </div>
           <div class="feed-content">
             <h4 class="feed-headline" style="margin-top: 4px; margin-bottom: 12px;">${story.title}</h4>
