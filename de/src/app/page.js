@@ -386,6 +386,20 @@ export function renderApp(mountNode) {
   // Top bar references
   let resolvedPill = createStatusPill({ label: loopSteps[activeStepIndex].status, type: loopSteps[activeStepIndex].status === "EILMELDUNG" ? "eilmeldung" : "resolved" });
   let categoryPill = createStatusPill({ label: loopSteps[activeStepIndex].category, type: "category" });
+  categoryPill.style.cursor = "pointer";
+  categoryPill.addEventListener("click", () => {
+    if (window.openNewsList) {
+      window.openNewsList();
+      setTimeout(() => {
+        const pills = document.querySelectorAll('.feed-filter-pill');
+        pills.forEach(pill => {
+          if (pill.textContent.trim() === loopSteps[activeStepIndex].category) {
+            pill.click();
+          }
+        });
+      }, 50);
+    }
+  });
 
   const topBar = createTopBar({
     isBookmarked,
@@ -864,11 +878,6 @@ export function renderApp(mountNode) {
                 `<span class="feed-badge-urgent" ${story.status === "UPDATE" ? 'style="background-color: #D98A2B"' : ''}>${story.status}</span>` : ''}
               <span class="feed-badge-cat">${story.category}</span>
             </div>
-            <div class="feed-badge-trust">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-              92%
             </div>
           </div>
           <div class="feed-content">
