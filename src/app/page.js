@@ -627,9 +627,13 @@ export function renderApp(mountNode) {
       fullReportLink.setAttribute("role", "button");
       fullReportLink.setAttribute("aria-label", "Read the full article");
       fullReportLink.innerHTML = `
-        <svg class="swipe-up-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="18 15 12 9 6 15"></polyline>
-        </svg>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+          <svg class="swipe-up-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="17 11 12 6 7 11"></polyline>
+            <polyline points="17 18 12 13 7 18"></polyline>
+          </svg>
+          <span style="font-size: 15px; font-weight: 500;">Swipe up to read the full article</span>
+        </div>
       `;
       fullReportLink.addEventListener("click", (e) => {
         e.preventDefault();
@@ -717,6 +721,7 @@ export function renderApp(mountNode) {
   // Swipe-up gesture to open drawer (only when at the bottom of the slide)
   let touchStartY = 0;
   let wasAtBottomOnStart = false;
+  let isDraggingDrawer = false;
   
   contentArea.addEventListener('touchstart', (e) => {
     touchStartY = e.changedTouches[0].screenY;
@@ -726,16 +731,38 @@ export function renderApp(mountNode) {
     } else {
       wasAtBottomOnStart = true;
     }
+    isDraggingDrawer = false;
   }, { passive: true });
+
+  contentArea.addEventListener('touchmove', (e) => {
+    if (!wasAtBottomOnStart || e.target.closest('.flip-container')) return;
+    const touchCurrentY = e.changedTouches[0].screenY;
+    const distance = touchStartY - touchCurrentY;
+    
+    if (distance > 10) {
+      isDraggingDrawer = true;
+      if (e.cancelable) e.preventDefault();
+      articleDrawer.style.transition = "none";
+      const percent = Math.max(0, 100 - (distance / window.innerHeight * 100));
+      articleDrawer.style.transform = `translateY(${percent}%)`;
+    }
+  }, { passive: false });
   
   contentArea.addEventListener('touchend', (e) => {
-    // If the swipe originated on a flip card, ignore it for the article drawer
     if (e.target.closest('.flip-container')) return;
 
     const touchEndY = e.changedTouches[0].screenY;
     const distance = touchStartY - touchEndY;
-    // Less aggressive swipe: require 100px swipe AND being at the bottom of the content
-    if (distance > 100 && wasAtBottomOnStart) {
+    
+    if (isDraggingDrawer) {
+      articleDrawer.style.transition = "transform 380ms cubic-bezier(0.32, 0.94, 0.6, 1)";
+      articleDrawer.style.transform = ""; 
+      
+      if (distance > 100) {
+        openArticleDrawer();
+      }
+      isDraggingDrawer = false;
+    } else if (distance > 100 && wasAtBottomOnStart) {
       openArticleDrawer();
     }
   }, { passive: true });
