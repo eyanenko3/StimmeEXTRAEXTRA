@@ -8,10 +8,220 @@ import { createPaginationDots } from "../components/loops/pagination-dots.js";
 import { createExplainerCard } from "../components/loops/explainer-card.js";
 import { createInsetImpactPanel } from "../components/loops/inset-impact-panel.js";
 
-let activeStoryId = "weststadt";
+let activeStoryId = "heilbronn-beats";
 let _storyLoadedByUser = false;
 
 const allStories = [
+  {
+    id: "heilbronn-beats",
+    title: "Heilbronn Beats: Riesiges Open-Air-Festival im Neckarpark angekündigt",
+    category: "Events",
+    status: "EILMELDUNG",
+    author: "Sarah Lenz",
+    summary: "Ein massives neues Electro- und Hip-Hop-Festival kommt diesen Sommer in den Neckarpark.",
+    age: "vor 1 Std.",
+    distance: "1,2 km entfernt",
+    sources: "Offizielle PR",
+    thumb: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+    articleBody: `<p class="drawer-lead">Heilbronn rüstet sich für die größte Sommerparty aller Zeiten. <mark class="editorial-highlight">Das "Heilbronn Beats" Open-Air-Festival kommt offiziell in den Neckarpark.</mark></p>
+      <img src="https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80" alt="Konzertmenge" class="drawer-image" />
+      <p class="drawer-body">Die Veranstalter gaben heute das erste Line-up bekannt und versprechen ein gewaltiges Wochenende voller elektronischer Musik, Hip-Hop und interaktiver Kunstinstallationen. Das Festival richtet sich speziell an die Jugend und Studierenden der Stadt.</p>
+      <div class="drawer-quote-panel">
+        <span class="quote-symbol">„</span>
+        <p class="quote-text">Wir wollten ein Erlebnis schaffen, das Heilbronn für junge Menschen im ganzen Bundesland auf die Karte setzt.</p>
+      </div>
+      <p class="drawer-body">Early-Bird-Tickets gehen nächsten Freitag um Mitternacht in den Vorverkauf. <mark class="editorial-highlight">Studierende mit gültigem Ausweis erhalten 30 % Rabatt auf Wochenendtickets.</mark></p>`,
+    loops: [
+      {
+        step: 1,
+        title: "Heilbronn Beats: Riesiges Open-Air-Festival im Neckarpark angekündigt",
+        category: "Events",
+        status: "EILMELDUNG",
+        age: "vor 1 Std.",
+        distance: "1,2 km entfernt",
+        impactTitle: "SCHLAGZEILE",
+        impactText: "",
+        imageUrl: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Konzertmenge"
+      },
+      {
+        step: 2,
+        title: "Heilbronn Beats: Riesiges Open-Air-Festival im Neckarpark angekündigt",
+        category: "Events",
+        status: "EILMELDUNG",
+        age: "vor 1 Std.",
+        distance: "1,2 km entfernt",
+        impactTitle: "ZUSAMMENFASSUNG",
+        impactText: "Ein massives neues Electro- und Hip-Hop-Festival kommt diesen Sommer in den Neckarpark, mit internationalen Headlinern und einem riesigen Studentenrabatt.",
+        imageUrl: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Konzertmenge"
+      },
+      {
+        step: 3,
+        isFlipCard: true,
+        title: "Was bedeutet das für dich?",
+        category: "Events",
+        status: "EILMELDUNG",
+        age: "vor 1 Std.",
+        distance: "1,2 km entfernt",
+        impactTitle: "DEINE MEINUNG",
+        impactText: "Mach dich bereit für ein episches Sommerwochenende! Wenn du studierst, sichere dir frühzeitig die vergünstigten Tickets, bevor sie ausverkauft sind.",
+        imageUrl: "../public/images/mystery_question_mark.png",
+        imageAlt: "Fragezeichen"
+      },
+      {
+        step: 4,
+        isDoNext: true,
+        title: "Schau dir das Festival-Line-up an",
+        category: "Events",
+        status: "EILMELDUNG",
+        age: "Aktiv",
+        distance: "Neckarpark",
+        imageUrl: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Konzertmenge"
+      }
+    ]
+  },
+  {
+    id: "skatepark-drama",
+    title: "Stadtrat stimmt für Abriss des beliebten Skateparks in der Innenstadt",
+    category: "Gesellschaft",
+    status: "AKTUALISIERUNG",
+    author: "Marc Richter",
+    summary: "Im Internet kam es heute zu großer Empörung, nachdem der Heilbronner Stadtrat Pläne bekannt gab, den legendären Skatepark abzureißen.",
+    age: "vor 3 Std.",
+    distance: "Innenstadt",
+    sources: "3 Quellen",
+    thumb: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
+    articleBody: `<p class="drawer-lead">Eine umstrittene Entscheidung hat heute unter den Jugendlichen in Heilbronn massive Empörung ausgelöst. <mark class="editorial-highlight">Der Stadtrat hat stillschweigend einen Plan zum Abriss des beliebten Skateparks in der Innenstadt gebilligt.</mark></p>
+      <img src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80" alt="Skatepark" class="drawer-image" />
+      <p class="drawer-body">Der Park, der seit über einem Jahrzehnt ein kultureller Treffpunkt für Skater, BMX-Fahrer und Künstler ist, soll durch einen luxuriösen Apartmentkomplex ersetzt werden. Lokale Jugendorganisationen beklagen, sie seien vom Entscheidungsprozess völlig ausgeschlossen worden.</p>
+      <div class="drawer-quote-panel">
+        <span class="quote-symbol">„</span>
+        <p class="quote-text">Sie reißen den einzigen kostenlosen, sicheren Raum ab, den wir in der Stadt noch haben, nur um Wohnungen zu bauen, die sich niemand von uns leisten kann.</p>
+      </div>
+      <p class="drawer-body">Aktivisten organisieren bereits einen massiven Protest, der für diesen Samstag am Rathaus geplant ist. <mark class="editorial-highlight">Eine Petition zur Rücknahme der Entscheidung hat in nur zwei Stunden über 5.000 Unterschriften gesammelt.</mark></p>`,
+    loops: [
+      {
+        step: 1,
+        title: "Stadtrat stimmt für Abriss des beliebten Skateparks in der Innenstadt",
+        category: "Gesellschaft",
+        status: "AKTUALISIERUNG",
+        age: "vor 3 Std.",
+        distance: "Innenstadt",
+        impactTitle: "SCHLAGZEILE",
+        impactText: "",
+        imageUrl: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Skatepark"
+      },
+      {
+        step: 2,
+        title: "Stadtrat stimmt für Abriss des beliebten Skateparks in der Innenstadt",
+        category: "Gesellschaft",
+        status: "AKTUALISIERUNG",
+        age: "vor 3 Std.",
+        distance: "Innenstadt",
+        impactTitle: "ZUSAMMENFASSUNG",
+        impactText: "Der beliebte Skatepark in der Innenstadt soll abgerissen werden, um Luxuswohnungen zu bauen, was bei der lokalen Jugend große Empörung und Proteste auslöst.",
+        imageUrl: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Skatepark"
+      },
+      {
+        step: 3,
+        isFlipCard: true,
+        title: "Was bedeutet das für dich?",
+        category: "Gesellschaft",
+        status: "AKTUALISIERUNG",
+        age: "vor 3 Std.",
+        distance: "Innenstadt",
+        impactTitle: "DEINE MEINUNG",
+        impactText: "Ein wichtiger Treffpunkt für Jugendliche verschwindet. Wenn du dir Gehör verschaffen willst, schließe dich den Protesten an oder unterschreibe die Online-Petition.",
+        imageUrl: "../public/images/mystery_question_mark.png",
+        imageAlt: "Fragezeichen"
+      },
+      {
+        step: 4,
+        isDoNext: true,
+        title: "Beteilige dich an der Diskussion über den Skatepark",
+        category: "Gesellschaft",
+        status: "AKTUALISIERUNG",
+        age: "Aktiv",
+        distance: "Innenstadt",
+        imageUrl: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Skatepark"
+      }
+    ]
+  },
+  {
+    id: "tech-hub-jobs",
+    title: "Großer Tech-Hub in Heilbronn eröffnet: 500 neue Einstiegsjobs",
+    category: "Jobs",
+    status: "NEU",
+    author: "Elena Weber",
+    summary: "Ein riesiger neuer KI-Innovationscampus wurde in Heilbronn eröffnet.",
+    age: "vor 10 Min.",
+    distance: "Innovationspark",
+    sources: "2 Quellen",
+    thumb: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
+    articleBody: `<p class="drawer-lead">Heilbronn festigt seinen Status als nächster großer KI-Hotspot Europas. <mark class="editorial-highlight">Ein mit Spannung erwarteter Tech-Campus hat heute Morgen offiziell seine Türen geöffnet.</mark></p>
+      <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80" alt="Tech-Campus" class="drawer-image" />
+      <p class="drawer-body">Die neue Einrichtung, die von führenden Tech-Giganten finanziert wird, konzentriert sich ganz auf Künstliche Intelligenz und Green-Tech. Was diesen Start für die lokale Gemeinschaft besonders aufregend macht, ist die massive Einstellungsoffensive, die sich an Absolventen und junge Talente richtet.</p>
+      <div class="drawer-quote-panel">
+        <span class="quote-symbol">„</span>
+        <p class="quote-text">Wir suchen nicht nur leitende Ingenieure. Wir wollen frische, junge Köpfe aus Heilbronn, die uns helfen, die Zukunft der KI zu gestalten.</p>
+      </div>
+      <p class="drawer-body">Mehr als 500 Einstiegspositionen und bezahlte Praktika wurden soeben online ausgeschrieben. <mark class="editorial-highlight">Der Hub bietet zudem kostenlose Wochenend-Coding-Bootcamps für Anwohner an.</mark></p>`,
+    loops: [
+      {
+        step: 1,
+        title: "Großer Tech-Hub in Heilbronn eröffnet: 500 neue Einstiegsjobs",
+        category: "Jobs",
+        status: "NEU",
+        age: "vor 10 Min.",
+        distance: "Innovationspark",
+        impactTitle: "SCHLAGZEILE",
+        impactText: "",
+        imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Tech-Campus"
+      },
+      {
+        step: 2,
+        title: "Großer Tech-Hub in Heilbronn eröffnet: 500 neue Einstiegsjobs",
+        category: "Jobs",
+        status: "NEU",
+        age: "vor 10 Min.",
+        distance: "Innovationspark",
+        impactTitle: "ZUSAMMENFASSUNG",
+        impactText: "Ein riesiger neuer KI-Innovationscampus wurde in Heilbronn eröffnet und bietet sofort 500 Einstiegsjobs und bezahlte Praktika für lokale junge Talente an.",
+        imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Tech-Campus"
+      },
+      {
+        step: 3,
+        isFlipCard: true,
+        title: "Was bedeutet das für dich?",
+        category: "Jobs",
+        status: "NEU",
+        age: "vor 10 Min.",
+        distance: "Innovationspark",
+        impactTitle: "DEINE MEINUNG",
+        impactText: "Möchtest du deine Karriere ankurbeln? Dies ist eine einmalige Gelegenheit, einen hochbezahlten Job oder ein Praktikum in der Tech-Branche zu ergattern, ohne Heilbronn verlassen zu müssen.",
+        imageUrl: "../public/images/mystery_question_mark.png",
+        imageAlt: "Fragezeichen"
+      },
+      {
+        step: 4,
+        isDoNext: true,
+        title: "Sieh dir die neuen Stellenangebote an",
+        category: "Jobs",
+        status: "NEU",
+        age: "Aktiv",
+        distance: "Innovationspark",
+        imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Tech-Campus"
+      }
+    ]
+  },
   {
     id: "weststadt",
     title: "Weststadt-Radweg: Sanierung und Sicherheitsausbau abgeschlossen",
@@ -666,6 +876,9 @@ export function renderApp(mountNode) {
     </div>
     <div class="feed-filters">
       <button class="feed-filter-pill active">Alle</button>
+      <button class="feed-filter-pill">Events</button>
+      <button class="feed-filter-pill">Gesellschaft</button>
+      <button class="feed-filter-pill">Jobs</button>
       <button class="feed-filter-pill">Wohnen</button>
       <button class="feed-filter-pill">Mobilität</button>
       <button class="feed-filter-pill">Klima</button>

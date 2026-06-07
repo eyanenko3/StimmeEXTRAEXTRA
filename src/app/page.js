@@ -8,10 +8,220 @@ import { createPaginationDots } from "../components/loops/pagination-dots.js";
 import { createExplainerCard } from "../components/loops/explainer-card.js";
 import { createInsetImpactPanel } from "../components/loops/inset-impact-panel.js";
 
-let activeStoryId = "weststadt";
+let activeStoryId = "heilbronn-beats";
 let _storyLoadedByUser = false;
 
 const allStories = [
+  {
+    id: "heilbronn-beats",
+    title: "Heilbronn Beats: Massive Open-Air Festival Announced for Neckar Park",
+    category: "Events",
+    status: "BREAKING",
+    author: "Sarah Lenz",
+    summary: "A massive new electronic and hip-hop music festival is coming to Neckar Park this summer.",
+    age: "1h ago",
+    distance: "1.2 km away",
+    sources: "Official PR",
+    thumb: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+    articleBody: `<p class="drawer-lead">Heilbronn is getting ready for its biggest summer party yet. <mark class="editorial-highlight">The "Heilbronn Beats" open-air festival is officially coming to Neckar Park.</mark></p>
+      <img src="https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80" alt="Concert crowd" class="drawer-image" />
+      <p class="drawer-body">Event organizers revealed the initial lineup today, promising a massive weekend of electronic music, hip-hop, and interactive art installations. The festival is specifically aimed at the city's youth and student population.</p>
+      <div class="drawer-quote-panel">
+        <span class="quote-symbol">"</span>
+        <p class="quote-text">We wanted to create an experience that puts Heilbronn on the map for young people across the state.</p>
+      </div>
+      <p class="drawer-body">Early bird tickets go on sale next Friday at midnight. <mark class="editorial-highlight">Students with a valid ID can claim a 30% discount on weekend passes.</mark></p>`,
+    loops: [
+      {
+        step: 1,
+        title: "Heilbronn Beats: Massive Open-Air Festival Announced for Neckar Park",
+        category: "Events",
+        status: "BREAKING",
+        age: "1h ago",
+        distance: "1.2 km away",
+        impactTitle: "HEADLINE",
+        impactText: "",
+        imageUrl: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Concert crowd"
+      },
+      {
+        step: 2,
+        title: "Heilbronn Beats: Massive Open-Air Festival Announced for Neckar Park",
+        category: "Events",
+        status: "BREAKING",
+        age: "1h ago",
+        distance: "1.2 km away",
+        impactTitle: "SUMMARY",
+        impactText: "A massive new electronic and hip-hop music festival is coming to Neckar Park this summer, featuring international headliners and a massive 30% student discount.",
+        imageUrl: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Concert crowd"
+      },
+      {
+        step: 3,
+        isFlipCard: true,
+        title: "What it means for you",
+        category: "Events",
+        status: "BREAKING",
+        age: "1h ago",
+        distance: "1.2 km away",
+        impactTitle: "YOUR IMPACT",
+        impactText: "Get ready for an epic summer weekend! If you're a student, make sure to grab those discounted tickets early before they sell out.",
+        imageUrl: "../public/images/mystery_question_mark.png",
+        imageAlt: "Question mark"
+      },
+      {
+        step: 4,
+        isDoNext: true,
+        title: "Check out the festival lineup",
+        category: "Events",
+        status: "BREAKING",
+        age: "Active",
+        distance: "Neckar Park",
+        imageUrl: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Concert crowd"
+      }
+    ]
+  },
+  {
+    id: "skatepark-drama",
+    title: "City Council Votes to Demolish Beloved Downtown Skatepark",
+    category: "Society",
+    status: "UPDATE",
+    author: "Marc Richter",
+    summary: "Outrage erupted online today after the Heilbronn City Council announced plans to bulldoze the iconic downtown skatepark.",
+    age: "3h ago",
+    distance: "City Center",
+    sources: "3 sources",
+    thumb: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
+    articleBody: `<p class="drawer-lead">A controversial decision has sparked massive outrage among Heilbronn's youth today. <mark class="editorial-highlight">The City Council has quietly approved a plan to demolish the beloved downtown skatepark.</mark></p>
+      <img src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80" alt="Skatepark" class="drawer-image" />
+      <p class="drawer-body">The park, which has been a cultural hub for skaters, BMX riders, and artists for over a decade, will be replaced by a high-end commercial and luxury apartment complex. Local youth organizations claim they were entirely excluded from the decision-making process.</p>
+      <div class="drawer-quote-panel">
+        <span class="quote-symbol">"</span>
+        <p class="quote-text">They're tearing down the only free, safe space we have left in the city just to build apartments none of us can afford.</p>
+      </div>
+      <p class="drawer-body">Activists are already organizing a massive protest scheduled for this Saturday at the town hall. <mark class="editorial-highlight">A petition to reverse the decision has garnered over 5,000 signatures in just two hours.</mark></p>`,
+    loops: [
+      {
+        step: 1,
+        title: "City Council Votes to Demolish Beloved Downtown Skatepark",
+        category: "Society",
+        status: "UPDATE",
+        age: "3h ago",
+        distance: "City Center",
+        impactTitle: "HEADLINE",
+        impactText: "",
+        imageUrl: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Skatepark"
+      },
+      {
+        step: 2,
+        title: "City Council Votes to Demolish Beloved Downtown Skatepark",
+        category: "Society",
+        status: "UPDATE",
+        age: "3h ago",
+        distance: "City Center",
+        impactTitle: "SUMMARY",
+        impactText: "The beloved downtown skatepark is set to be demolished to build luxury apartments, sparking massive outrage and protests from local youth.",
+        imageUrl: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Skatepark"
+      },
+      {
+        step: 3,
+        isFlipCard: true,
+        title: "What it means for you",
+        category: "Society",
+        status: "UPDATE",
+        age: "3h ago",
+        distance: "City Center",
+        impactTitle: "YOUR IMPACT",
+        impactText: "A key youth hangout spot is disappearing. If you want to make your voice heard, join the community protests or sign the petition circulating online.",
+        imageUrl: "../public/images/mystery_question_mark.png",
+        imageAlt: "Question mark"
+      },
+      {
+        step: 4,
+        isDoNext: true,
+        title: "Join the conversation about the skatepark",
+        category: "Society",
+        status: "UPDATE",
+        age: "Active",
+        distance: "City Center",
+        imageUrl: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Skatepark"
+      }
+    ]
+  },
+  {
+    id: "tech-hub-jobs",
+    title: "Major Tech Hub Opens in Heilbronn: 500 New Entry-Level Jobs",
+    category: "Jobs",
+    status: "NEW",
+    author: "Elena Weber",
+    summary: "A global tech consortium has just opened its massive new AI innovation campus in Heilbronn.",
+    age: "10m ago",
+    distance: "Innovation Park",
+    sources: "2 sources",
+    thumb: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
+    articleBody: `<p class="drawer-lead">Heilbronn is cementing its status as Europe's next major AI hotspot. <mark class="editorial-highlight">A highly anticipated tech campus officially opened its doors this morning.</mark></p>
+      <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80" alt="Tech campus" class="drawer-image" />
+      <p class="drawer-body">The new facility, funded by leading tech giants, focuses entirely on artificial intelligence and green tech. What makes this launch truly exciting for the local community is its massive hiring initiative targeting recent graduates and young talent.</p>
+      <div class="drawer-quote-panel">
+        <span class="quote-symbol">"</span>
+        <p class="quote-text">We are not just looking for senior engineers. We want fresh, young minds from Heilbronn to help us shape the future of AI.</p>
+      </div>
+      <p class="drawer-body">Over 500 entry-level positions and paid internships have just been posted online. <mark class="editorial-highlight">The hub is also offering free weekend coding bootcamps for local residents.</mark></p>`,
+    loops: [
+      {
+        step: 1,
+        title: "Major Tech Hub Opens in Heilbronn: 500 New Entry-Level Jobs",
+        category: "Jobs",
+        status: "NEW",
+        age: "10m ago",
+        distance: "Innovation Park",
+        impactTitle: "HEADLINE",
+        impactText: "",
+        imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Tech campus"
+      },
+      {
+        step: 2,
+        title: "Major Tech Hub Opens in Heilbronn: 500 New Entry-Level Jobs",
+        category: "Jobs",
+        status: "NEW",
+        age: "10m ago",
+        distance: "Innovation Park",
+        impactTitle: "SUMMARY",
+        impactText: "A massive new AI innovation campus has opened in Heilbronn, immediately posting 500 entry-level jobs and paid internships for local young talent.",
+        imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Tech campus"
+      },
+      {
+        step: 3,
+        isFlipCard: true,
+        title: "What it means for you",
+        category: "Jobs",
+        status: "NEW",
+        age: "10m ago",
+        distance: "Innovation Park",
+        impactTitle: "YOUR IMPACT",
+        impactText: "Looking to kickstart your career? This is a golden opportunity to land a high-paying job or internship in the tech industry without leaving Heilbronn.",
+        imageUrl: "../public/images/mystery_question_mark.png",
+        imageAlt: "Question mark"
+      },
+      {
+        step: 4,
+        isDoNext: true,
+        title: "Check out the new job openings",
+        category: "Jobs",
+        status: "NEW",
+        age: "Active",
+        distance: "Innovation Park",
+        imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Tech campus"
+      }
+    ]
+  },
   {
     id: "weststadt",
     title: "Weststadt Bicycle Corridor: Repair and Safety Upgrade Completed",
@@ -666,6 +876,9 @@ export function renderApp(mountNode) {
     </div>
     <div class="feed-filters">
       <button class="feed-filter-pill active">All</button>
+      <button class="feed-filter-pill">Events</button>
+      <button class="feed-filter-pill">Society</button>
+      <button class="feed-filter-pill">Jobs</button>
       <button class="feed-filter-pill">Housing</button>
       <button class="feed-filter-pill">Mobility</button>
       <button class="feed-filter-pill">Climate</button>
