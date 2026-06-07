@@ -78,7 +78,11 @@ const allStories = [
         age: "Aktiv",
         distance: "Neckarpark",
         imageUrl: "../public/images/heilbronn_beats_festival.png",
-        imageAlt: "Konzertmenge"
+        imageAlt: "Konzertmenge",
+        actionBtnText: "Am Event teilnehmen",
+        actionType: "email",
+        emailFormTitle: "Event-Updates erhalten",
+        emailFormText: "Trage deine E-Mail-Adresse ein, um Updates und Ticketinformationen zu erhalten."
       }
     ]
   },
@@ -218,7 +222,11 @@ const allStories = [
         age: "Aktiv",
         distance: "Innovationspark",
         imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
-        imageAlt: "Tech-Campus"
+        imageAlt: "Tech-Campus",
+        actionBtnText: "Stellenangebote ansehen",
+        actionType: "email",
+        emailFormTitle: "Stellenangebote erhalten",
+        emailFormText: "Trage deine E-Mail-Adresse ein, um Infos zu Stellenangeboten zu erhalten."
       }
     ]
   },
@@ -656,7 +664,7 @@ export function renderApp(mountNode) {
           <h2 class="explainer-headline">${stepData.title}</h2>
           
           <button type="button" class="btn-take-action" id="takeActionBtn">
-            <span>Jetzt handeln</span>
+            <span>${stepData.actionBtnText || "Jetzt handeln"}</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
@@ -670,7 +678,11 @@ export function renderApp(mountNode) {
       actionBtn.addEventListener("click", (e) => {
         triggerFireExplosion(e);
         setTimeout(() => {
-          openCommentModal();
+          if (stepData.actionType === "email") {
+            openEmailModal(stepData.emailFormTitle || "Anmelden", stepData.emailFormText || "E-Mail-Adresse eingeben.");
+          } else {
+            openCommentModal();
+          }
         }, 600);
       });
 
@@ -1224,6 +1236,63 @@ export function renderApp(mountNode) {
 
   function closeCommentModal() {
     commentModal.classList.remove("is-visible");
+  }
+
+  // Email Modal
+  const emailModal = document.createElement("div");
+  emailModal.className = "action-modal";
+  emailModal.innerHTML = `
+    <div class="modal-backdrop"></div>
+    <div class="modal-wrapper">
+      <div class="modal-header">
+        <h3 class="modal-title" id="emailModalTitle">Anmelden</h3>
+        <button type="button" class="btn-modal-close" id="closeEmailModalBtn" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-lead-text" id="emailModalText">E-Mail-Adresse für weitere Infos eingeben.</p>
+        <form id="emailForm" class="modal-form">
+          <label for="emailInput" class="form-label">E-Mail-Adresse</label>
+          <input type="email" id="emailInput" class="form-textarea" style="height: 48px; resize: none; padding: 12px; border-radius: 12px; border: 1px solid var(--border-soft); background-color: var(--bg-surface); font-family: var(--font-body); font-size: 15px;" placeholder="deine.email@beispiel.de" required />
+          <button type="submit" class="btn-submit-comment" style="margin-top: 12px;">Absenden</button>
+        </form>
+      </div>
+    </div>
+  `;
+  mountNode.appendChild(emailModal);
+
+  // Wire Email Modal events
+  const closeEmailModalBtn = emailModal.querySelector("#closeEmailModalBtn");
+  const emailModalBackdrop = emailModal.querySelector(".modal-backdrop");
+  const emailForm = emailModal.querySelector("#emailForm");
+  const emailModalTitle = emailModal.querySelector("#emailModalTitle");
+  const emailModalText = emailModal.querySelector("#emailModalText");
+
+  closeEmailModalBtn.addEventListener("click", closeEmailModal);
+  emailModalBackdrop.addEventListener("click", closeEmailModal);
+  
+  emailForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = emailModal.querySelector("#emailInput").value;
+    if (email.trim()) {
+      showToast("Vielen Dank! Weitere Informationen werden an deine E-Mail gesendet.");
+      closeEmailModal();
+      emailForm.reset();
+    }
+  });
+
+  function openEmailModal(title, text) {
+    emailModalTitle.textContent = title;
+    emailModalText.textContent = text;
+    emailModal.classList.add("is-visible");
+  }
+
+  function closeEmailModal() {
+    emailModal.classList.remove("is-visible");
   }
 
   // 14. Fire Explosion Particle Generator
