@@ -22,9 +22,9 @@ const allStories = [
     age: "1h ago",
     distance: "1.2 km away",
     sources: "Official PR",
-    thumb: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+    thumb: "public/images/heilbronn_beats_festival.png",
     articleBody: `<p class="drawer-lead">Heilbronn is getting ready for its biggest summer party yet. <mark class="editorial-highlight">The "Heilbronn Beats" open-air festival is officially coming to Neckar Park.</mark></p>
-      <img src="https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80" alt="Concert crowd" class="drawer-image" />
+      <img src="public/images/heilbronn_beats_festival.png" alt="Concert crowd" class="drawer-image" />
       <p class="drawer-body">Event organizers revealed the initial lineup today, promising a massive weekend of electronic music, hip-hop, and interactive art installations. The festival is specifically aimed at the city's youth and student population.</p>
       <div class="drawer-quote-panel">
         <span class="quote-symbol">"</span>
@@ -41,7 +41,7 @@ const allStories = [
         distance: "1.2 km away",
         impactTitle: "HEADLINE",
         impactText: "",
-        imageUrl: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+        imageUrl: "public/images/heilbronn_beats_festival.png",
         imageAlt: "Concert crowd"
       },
       {
@@ -53,7 +53,7 @@ const allStories = [
         distance: "1.2 km away",
         impactTitle: "SUMMARY",
         impactText: "A massive new electronic and hip-hop music festival is coming to Neckar Park this summer, featuring international headliners and a massive 30% student discount.",
-        imageUrl: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+        imageUrl: "public/images/heilbronn_beats_festival.png",
         imageAlt: "Concert crowd"
       },
       {
@@ -77,7 +77,7 @@ const allStories = [
         status: "BREAKING",
         age: "Active",
         distance: "Neckar Park",
-        imageUrl: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+        imageUrl: "public/images/heilbronn_beats_festival.png",
         imageAlt: "Concert crowd"
       }
     ]

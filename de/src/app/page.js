@@ -22,9 +22,9 @@ const allStories = [
     age: "vor 1 Std.",
     distance: "1,2 km entfernt",
     sources: "Offizielle PR",
-    thumb: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+    thumb: "../public/images/heilbronn_beats_festival.png",
     articleBody: `<p class="drawer-lead">Heilbronn rüstet sich für die größte Sommerparty aller Zeiten. <mark class="editorial-highlight">Das "Heilbronn Beats" Open-Air-Festival kommt offiziell in den Neckarpark.</mark></p>
-      <img src="https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80" alt="Konzertmenge" class="drawer-image" />
+      <img src="../public/images/heilbronn_beats_festival.png" alt="Konzertmenge" class="drawer-image" />
       <p class="drawer-body">Die Veranstalter gaben heute das erste Line-up bekannt und versprechen ein gewaltiges Wochenende voller elektronischer Musik, Hip-Hop und interaktiver Kunstinstallationen. Das Festival richtet sich speziell an die Jugend und Studierenden der Stadt.</p>
       <div class="drawer-quote-panel">
         <span class="quote-symbol">„</span>
@@ -41,7 +41,7 @@ const allStories = [
         distance: "1,2 km entfernt",
         impactTitle: "SCHLAGZEILE",
         impactText: "",
-        imageUrl: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+        imageUrl: "../public/images/heilbronn_beats_festival.png",
         imageAlt: "Konzertmenge"
       },
       {
@@ -53,7 +53,7 @@ const allStories = [
         distance: "1,2 km entfernt",
         impactTitle: "ZUSAMMENFASSUNG",
         impactText: "Ein massives neues Electro- und Hip-Hop-Festival kommt diesen Sommer in den Neckarpark, mit internationalen Headlinern und einem riesigen Studentenrabatt.",
-        imageUrl: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+        imageUrl: "../public/images/heilbronn_beats_festival.png",
         imageAlt: "Konzertmenge"
       },
       {
@@ -77,7 +77,7 @@ const allStories = [
         status: "EILMELDUNG",
         age: "Aktiv",
         distance: "Neckarpark",
-        imageUrl: "https://images.unsplash.com/photo-1540039155732-d6749b9325f6?auto=format&fit=crop&w=800&q=80",
+        imageUrl: "../public/images/heilbronn_beats_festival.png",
         imageAlt: "Konzertmenge"
       }
     ]
