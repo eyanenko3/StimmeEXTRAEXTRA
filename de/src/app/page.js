@@ -39,7 +39,7 @@ const allStories = [
         status: "EILMELDUNG",
         age: "vor 1 Std.",
         distance: "1,2 km entfernt",
-        impactTitle: "SCHLAGZEILE & ZUSAMMENFASSUNG",
+        impactTitle: "",
         impactText: "Ein massives neues Electro- und Hip-Hop-Festival kommt diesen Sommer in den Neckarpark, mit internationalen Headlinern und einem riesigen Studentenrabatt.",
         imageUrl: "../public/images/heilbronn_beats_festival.png",
         imageAlt: "Konzertmenge"
@@ -101,7 +101,7 @@ const allStories = [
         status: "AKTUALISIERUNG",
         age: "vor 3 Std.",
         distance: "Innenstadt",
-        impactTitle: "SCHLAGZEILE & ZUSAMMENFASSUNG",
+        impactTitle: "",
         impactText: "Der beliebte Skatepark in der Innenstadt soll abgerissen werden, um Luxuswohnungen zu bauen, was bei der lokalen Jugend große Empörung und Proteste auslöst.",
         imageUrl: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
         imageAlt: "Skatepark"
@@ -159,7 +159,7 @@ const allStories = [
         status: "NEU",
         age: "vor 10 Min.",
         distance: "Innovationspark",
-        impactTitle: "SCHLAGZEILE & ZUSAMMENFASSUNG",
+        impactTitle: "",
         impactText: "Ein riesiger neuer KI-Innovationscampus wurde in Heilbronn eröffnet und bietet sofort 500 Einstiegsjobs und bezahlte Praktika für lokale junge Talente an.",
         imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
         imageAlt: "Tech-Campus"
@@ -222,7 +222,7 @@ const allStories = [
         status: "Weststadt Radweg...",
         age: "vor 3 Min.",
         distance: "0,4 km entfernt",
-        impactTitle: "SCHLAGZEILE & ZUSAMMENFASSUNG",
+        impactTitle: "",
         impactText: "Die Bauarbeiten haben offiziell begonnen. Autofahrer müssen mit lokalen Umleitungen rechnen. Radfahrer werden vorübergehend durch ruhige Seitenstraßen geleitet.",
         imageUrl: "../public/images/loops-bike-corridor.png",
         imageAlt: "Planungsdarstellung des Weststadt-Korridors"
@@ -280,7 +280,7 @@ const allStories = [
         status: "EILMELDUNG",
         age: "vor 1 Std.",
         distance: "Stadtweit",
-        impactTitle: "SCHLAGZEILE & ZUSAMMENFASSUNG",
+        impactTitle: "",
         impactText: "Die Stadt hat ihre jährliche Stadtradeln-Kampagne gestartet. Bürger werden ermutigt, mit dem Rad zur Arbeit zu fahren, um CO2 zu sparen und Preise zu gewinnen.",
         imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80",
         imageAlt: "Radfahrer in Heilbronn"
@@ -338,7 +338,7 @@ const allStories = [
         status: "AKTUALISIERUNG",
         age: "vor 2 Std.",
         distance: "Region",
-        impactTitle: "SCHLAGZEILE & ZUSAMMENFASSUNG",
+        impactTitle: "",
         impactText: "Aufgrund anhaltender Trockenperioden hat der Landkreis Heilbronn eine offizielle Warnung herausgegeben und die Bevölkerung zum Wassersparen aufgerufen.",
         imageUrl: "../public/images/water_shortage_drought.png",
         imageAlt: "Wasserknappheit"

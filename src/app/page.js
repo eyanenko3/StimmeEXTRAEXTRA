@@ -39,7 +39,7 @@ const allStories = [
         status: "BREAKING",
         age: "1h ago",
         distance: "1.2 km away",
-        impactTitle: "HEADLINE & SUMMARY",
+        impactTitle: "",
         impactText: "A massive new electronic and hip-hop music festival is coming to Neckar Park this summer, featuring international headliners and a massive 30% student discount.",
         imageUrl: "public/images/heilbronn_beats_festival.png",
         imageAlt: "Concert crowd"
@@ -101,7 +101,7 @@ const allStories = [
         status: "UPDATE",
         age: "3h ago",
         distance: "City Center",
-        impactTitle: "HEADLINE & SUMMARY",
+        impactTitle: "",
         impactText: "The beloved downtown skatepark is set to be demolished to build luxury apartments, sparking massive outrage and protests from local youth.",
         imageUrl: "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=800&q=80",
         imageAlt: "Skatepark"
@@ -159,7 +159,7 @@ const allStories = [
         status: "NEW",
         age: "10m ago",
         distance: "Innovation Park",
-        impactTitle: "HEADLINE & SUMMARY",
+        impactTitle: "",
         impactText: "A massive new AI innovation campus has opened in Heilbronn, immediately posting 500 entry-level jobs and paid internships for local young talent.",
         imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
         imageAlt: "Tech campus"
@@ -222,7 +222,7 @@ const allStories = [
         status: "Weststadt Bicycle...",
         age: "3m ago",
         distance: "0.4 km away",
-        impactTitle: "HEADLINE & SUMMARY",
+        impactTitle: "",
         impactText: "Construction has officially started. Drivers should expect local detours. Cyclists are temporarily routed through quiet side streets.",
         imageUrl: "public/images/loops-bike-corridor.png",
         imageAlt: "Planning representation of Weststadt corridor"
@@ -280,7 +280,7 @@ const allStories = [
         status: "BREAKING",
         age: "1h ago",
         distance: "Citywide",
-        impactTitle: "HEADLINE & SUMMARY",
+        impactTitle: "",
         impactText: "The city has launched its annual Stadtradeln campaign. Citizens are encouraged to cycle to work to save CO2 emissions and win prizes.",
         imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80",
         imageAlt: "Cyclists in Heilbronn"
@@ -338,7 +338,7 @@ const allStories = [
         status: "UPDATE",
         age: "2h ago",
         distance: "Region",
-        impactTitle: "HEADLINE & SUMMARY",
+        impactTitle: "",
         impactText: "Due to ongoing dry periods, the Landkreis Heilbronn has issued an official warning urging residents to save water.",
         imageUrl: "public/images/water_shortage_drought.png",
         imageAlt: "Water shortage"

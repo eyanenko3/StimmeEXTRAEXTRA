@@ -504,17 +504,16 @@ a:focus:not(:focus-visible),
 }
 
 .inset-impact-panel {
-  background-color: var(--bg-subtle);
-  border-radius: var(--radius-inner-panel);
-  padding: 10px 14px;
-  border: 1px solid var(--border-subtle);
+  background-color: transparent;
+  padding: 8px 0px 0px 0px;
+  border: none;
 }
 
 .impact-text {
   font-family: var(--font-body);
-  font-size: 14.5px;
+  font-size: 16.5px;
   font-weight: 400;
-  line-height: 1.45;
+  line-height: 1.5;
   color: var(--text-primary);
 }
 
