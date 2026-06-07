@@ -8,54 +8,220 @@ import { createPaginationDots } from "../components/loops/pagination-dots.js";
 import { createExplainerCard } from "../components/loops/explainer-card.js";
 import { createInsetImpactPanel } from "../components/loops/inset-impact-panel.js";
 
-// Multi-step story constants
-const loopSteps = [
+let activeStoryId = "weststadt";
+let _storyLoadedByUser = false;
+
+const allStories = [
   {
-    step: 1,
-    title: "Weststadt redevelopment plans presented",
-    category: "Planning",
-    status: "PLANNED",
+    id: "weststadt",
+    title: "Weststadt Bicycle Corridor: Repair and Safety Upgrade Completed",
+    category: "Infrastructure",
+    status: "Weststadt Bicycle...",
+    author: "Hb Stimme Redaktion",
+    summary: "Construction has officially started. Drivers should expect local detours. Cyclists are temporarily routed through quiet side streets.",
     age: "3m ago",
     distance: "0.4 km away",
-    impactTitle: "WHAT IS PLANNED",
-    impactText: "The city plans to comprehensively renovate several roads in the Weststadt district over the coming months to improve safety on school routes and make them more bicycle-friendly.",
-    imageUrl: "public/images/weststadt-planning.png",
-    imageAlt: "Planning representation of Weststadt corridor"
+    sources: "4 sources",
+    thumb: "public/images/loops-bike-corridor.png",
+    articleBody: `<p class="drawer-lead">The Heilbronn city administration has completed extensive renovation work on the central Weststadt bicycle route. <mark class="editorial-highlight">The million-euro project is primarily aimed at making school routes safer.</mark></p>
+      <img src="public/images/loops-bike-corridor.png" alt="Weststadt bike corridor" class="drawer-image" />
+      <p class="drawer-body">After nearly four months of construction, the busy Weststadt route is fully open to traffic. In addition to a noise-optimized, smooth asphalt surface, wider, color-contrasted protective lanes have been applied along a length of approximately 1.8 kilometers.</p>
+      <p class="drawer-body">“The project shows what modern local mobility can look like in our region,” said Mayor Harry Mergel at the official opening. <mark class="editorial-highlight">The focus was particularly on increasing passive safety at complex intersections</mark>, where reflective marking elements and optimized traffic light phases were installed.</p>
+      <div class="drawer-quote-panel">
+        <span class="quote-symbol">„</span>
+        <p class="quote-text">Most of all, the improved drainage at the road shoulders ensures that cyclists are no longer endangered by deep puddles during heavy rain.</p>
+      </div>
+      <p class="drawer-body"><mark class="editorial-highlight">The costs amount to around €820,000</mark>, the majority of which was funded by the state's transport financing act. Commuters and residents expressed positive feedback about the new riding comfort in initial surveys.</p>`,
+    loops: [
+      {
+        step: 1,
+        title: "Weststadt Bicycle Corridor: Repair and Safety Upgrade Completed",
+        category: "Infrastructure",
+        status: "Weststadt Bicycle...",
+        age: "3m ago",
+        distance: "0.4 km away",
+        impactTitle: "HEADLINE",
+        impactText: "",
+        imageUrl: "public/images/loops-bike-corridor.png",
+        imageAlt: "Planning representation of Weststadt corridor"
+      },
+      {
+        step: 2,
+        title: "Weststadt Bicycle Corridor: Repair and Safety Upgrade Completed",
+        category: "Infrastructure",
+        status: "Weststadt Bicycle...",
+        age: "2m ago",
+        distance: "0.4 km away",
+        impactTitle: "SUMMARY",
+        impactText: "Construction has officially started. Drivers should expect local detours. Cyclists are temporarily routed through quiet side streets.",
+        imageUrl: "public/images/loops-bike-corridor.png",
+        imageAlt: "Construction works in Weststadt"
+      },
+      {
+        step: 3,
+        isFlipCard: true,
+        title: "What it means for you?",
+        category: "Infrastructure",
+        status: "Weststadt Bicycle...",
+        age: "1d ago",
+        distance: "0.4 km away",
+        impactTitle: "YOUR OPINION",
+        impactText: "The route is now safer and easier to use. We want to know your thoughts on the new bicycle corridor.",
+        imageUrl: "public/images/mystery_question_mark.png",
+        imageAlt: "Mystery Question Mark"
+      },
+      {
+        step: 4,
+        isDoNext: true,
+        title: "Weststadt Bicycle Corridor: Repair and Safety Upgrade Completed",
+        category: "Infrastructure",
+        status: "Weststadt Bicycle...",
+        age: "Active",
+        distance: "Heilbronn",
+        imageUrl: "public/images/damaged-road.png",
+        imageAlt: "Community action photo of local roads"
+      }
+    ]
   },
   {
-    step: 2,
-    title: "Construction starts on central bicycle route",
-    category: "Infrastructure",
-    status: "IN PROGRESS",
-    age: "2m ago",
-    distance: "0.4 km away",
-    impactTitle: "CURRENT DISRUPTIONS",
-    impactText: "Construction has officially started. Drivers should expect local detours. Cyclists are temporarily routed through quiet side streets.",
-    imageUrl: "public/images/bike-construction.png",
-    imageAlt: "Construction works in Weststadt"
+    id: "stadtradeln",
+    title: "Stadtradeln 2026: Heilbronn aims for new record in Climate Action",
+    category: "Climate",
+    status: "BREAKING",
+    author: "Max Mustermann",
+    summary: "The city has launched its annual Stadtradeln campaign. Citizens are encouraged to cycle to work to save CO2 emissions and win prizes.",
+    age: "1h ago",
+    distance: "Citywide",
+    sources: "2 sources",
+    thumb: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80",
+    articleBody: `<p class="drawer-lead">The city of Heilbronn is once again participating in the international Stadtradeln campaign. <mark class="editorial-highlight">The goal is to cycle as many kilometers as possible in 21 days.</mark></p>
+      <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80" alt="Cyclists" class="drawer-image" />
+      <p class="drawer-body">Citizens, local politicians, and school classes are forming teams to track their daily commutes. The initiative aims to promote sustainable mobility and draw attention to the need for better bicycle infrastructure across the region.</p>
+      <div class="drawer-quote-panel">
+        <span class="quote-symbol">„</span>
+        <p class="quote-text">Every kilometer cycled is a direct contribution to climate protection and a clear signal for a greener Heilbronn.</p>
+      </div>
+      <p class="drawer-body">Registration is free and open to everyone who lives, works, or belongs to a club in the city. The campaign concludes at the end of the month with a large award ceremony at the Marktplatz.</p>`,
+    loops: [
+      {
+        step: 1,
+        title: "Stadtradeln 2026: Heilbronn aims for new record in Climate Action",
+        category: "Climate",
+        status: "BREAKING",
+        age: "1h ago",
+        distance: "Citywide",
+        impactTitle: "HEADLINE",
+        impactText: "",
+        imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Cyclists in Heilbronn"
+      },
+      {
+        step: 2,
+        title: "Stadtradeln 2026: Heilbronn aims for new record in Climate Action",
+        category: "Climate",
+        status: "BREAKING",
+        age: "1h ago",
+        distance: "Citywide",
+        impactTitle: "SUMMARY",
+        impactText: "The city has launched its annual Stadtradeln campaign. Citizens are encouraged to cycle to work to save CO2 emissions and win prizes.",
+        imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Cyclists in Heilbronn"
+      },
+      {
+        step: 3,
+        isFlipCard: true,
+        title: "What it means for you?",
+        category: "Climate",
+        status: "BREAKING",
+        age: "1h ago",
+        distance: "Citywide",
+        impactTitle: "YOUR OPINION",
+        impactText: "Will you switch to biking for your commute this month? Share your thoughts and pledge your kilometers.",
+        imageUrl: "public/images/mystery_question_mark.png",
+        imageAlt: "Mystery Question Mark"
+      },
+      {
+        step: 4,
+        isDoNext: true,
+        title: "Stadtradeln 2026: Heilbronn aims for new record in Climate Action",
+        category: "Climate",
+        status: "BREAKING",
+        age: "Active",
+        distance: "Heilbronn",
+        imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80",
+        imageAlt: "Cyclists in Heilbronn"
+      }
+    ]
   },
   {
-    step: 3,
-    title: "Bike corridor repair completed on Weststadt route",
+    id: "water",
+    title: "Landkreis warns of water shortages: Appeals for conservation",
     category: "Local Gov",
-    status: "RESOLVED",
-    age: "1d ago",
-    distance: "0.4 km away",
-    impactTitle: "WHAT IT MEANS FOR YOU",
-    impactText: "If you bike or drive through this area, the route is now safer and easier to use. The city also added clearer lane markings and improved drainage, which should reduce disruptions after rain.",
-    imageUrl: "public/images/loops-bike-corridor.png",
-    imageAlt: "Completed Weststadt bike corridor"
-  },
-  {
-    step: 4,
-    isDoNext: true,
-    title: "Know another road that needs fixing? File a report.",
-    category: "Community",
-    status: "DO NEXT",
-    age: "Active",
-    distance: "Heilbronn",
-    imageUrl: "public/images/damaged-road.png",
-    imageAlt: "Community action photo of local roads"
+    status: "UPDATE",
+    author: "Regional Desk",
+    summary: "Due to ongoing dry periods, the Landkreis Heilbronn has issued an official warning urging residents to save water.",
+    age: "2h ago",
+    distance: "Region",
+    sources: "5 sources",
+    thumb: "public/images/water_shortage_drought.png",
+    articleBody: `<p class="drawer-lead">The severe lack of rainfall over the past few weeks has prompted authorities to issue an official water conservation warning. <mark class="editorial-highlight">Water levels in local reservoirs have reached a critical low.</mark></p>
+      <img src="public/images/water_shortage_drought.png" alt="Drought" class="drawer-image" />
+      <p class="drawer-body">The Landkreis Heilbronn has asked all residents to immediately cease watering private lawns, filling swimming pools, and washing cars. Agricultural sectors are also facing strict limitations on groundwater extraction during the daylight hours.</p>
+      <div class="drawer-quote-panel">
+        <span class="quote-symbol">„</span>
+        <p class="quote-text">We are closely monitoring the situation. If the dry spell continues, legally binding bans will be the inevitable next step.</p>
+      </div>
+      <p class="drawer-body">Meteorologists do not expect significant precipitation in the coming fortnight. Citizens are encouraged to report major leaks or water wastage to the municipal hotline.</p>`,
+    loops: [
+      {
+        step: 1,
+        title: "Landkreis warns of water shortages: Appeals for conservation",
+        category: "Local Gov",
+        status: "UPDATE",
+        age: "2h ago",
+        distance: "Region",
+        impactTitle: "HEADLINE",
+        impactText: "",
+        imageUrl: "public/images/water_shortage_drought.png",
+        imageAlt: "Water shortage"
+      },
+      {
+        step: 2,
+        title: "Landkreis warns of water shortages: Appeals for conservation",
+        category: "Local Gov",
+        status: "UPDATE",
+        age: "2h ago",
+        distance: "Region",
+        impactTitle: "SUMMARY",
+        impactText: "Due to ongoing dry periods, the Landkreis Heilbronn has issued an official warning urging residents to save water.",
+        imageUrl: "public/images/water_shortage_drought.png",
+        imageAlt: "Water shortage"
+      },
+      {
+        step: 3,
+        isFlipCard: true,
+        title: "What it means for you?",
+        category: "Local Gov",
+        status: "UPDATE",
+        age: "2h ago",
+        distance: "Region",
+        impactTitle: "YOUR OPINION",
+        impactText: "Are you changing your daily water usage due to the warnings? Share your conservation tips with the community.",
+        imageUrl: "public/images/mystery_question_mark.png",
+        imageAlt: "Mystery Question Mark"
+      },
+      {
+        step: 4,
+        isDoNext: true,
+        title: "Landkreis warns of water shortages: Appeals for conservation",
+        category: "Local Gov",
+        status: "UPDATE",
+        age: "Active",
+        distance: "Region",
+        imageUrl: "public/images/water_shortage_drought.png",
+        imageAlt: "Water shortage"
+      }
+    ]
   }
 ];
 
@@ -67,17 +233,19 @@ export function renderApp(mountNode) {
 
   // 1. Manage local interactive states
   let isBookmarked = localStorage.getItem("loops_bookmarked") === "true";
-  let activeStepIndex = 2; // Step 3 by default (0-indexed is 2)
+  const currentStory = allStories.find(s => s.id === activeStoryId);
+  const loopSteps = currentStory.loops;
+  let activeStepIndex = 0; // Default to first step
 
   // Top bar references
-  let resolvedPill = createStatusPill({ label: loopSteps[activeStepIndex].status, type: "resolved" });
+  let resolvedPill = createStatusPill({ label: loopSteps[activeStepIndex].status, type: loopSteps[activeStepIndex].status === "EILMELDUNG" ? "eilmeldung" : "resolved" });
   let categoryPill = createStatusPill({ label: loopSteps[activeStepIndex].category, type: "category" });
 
   const topBar = createTopBar({
     isBookmarked,
     pills: [resolvedPill, categoryPill],
     onBack: () => {
-      showToast("Back navigation simulation");
+      openNewsList();
     },
     onBookmark: (e) => {
       isBookmarked = !isBookmarked;
@@ -107,6 +275,113 @@ export function renderApp(mountNode) {
     slide.className = "loop-slide";
     slide.dataset.index = index;
 
+    if (stepData.isFlipCard) {
+      const flipContainer = document.createElement("div");
+      flipContainer.className = "flip-container";
+      
+      const flipInner = document.createElement("div");
+      flipInner.className = "flip-card-inner";
+      
+      const flipFront = document.createElement("div");
+      flipFront.className = "flip-front";
+      flipFront.innerHTML = `
+        <div class="question-front-card-new">
+          <div class="q-front-image-wrapper">
+            <img src="${currentStory.thumb}" alt="Article Hero Image" />
+          </div>
+          <div class="q-front-button-wrapper">
+            <button class="q-front-action-btn" type="button" aria-label="Flip Card">
+              <span class="q-mark">?</span>
+              <span class="q-text">What it means for you</span>
+              <span class="q-subtext" style="font-size: 13px; font-weight: 500; color: rgba(255, 255, 255, 0.9); margin-top: 4px;">Click to flip</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      const flipBack = document.createElement("div");
+      flipBack.className = "flip-back";
+      
+      const otherStories = allStories.filter(s => s.id !== currentStory.id).slice(0, 3);
+      const relatedLinksHtml = otherStories.map(s => `
+        <a href="#" class="related-link-item" data-story-id="${s.id}">
+          <span class="link-bullet"></span>
+          <span class="link-text">${s.title}</span>
+          <svg class="link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+      `).join('');
+
+      flipBack.innerHTML = `
+        <div class="mystery-back-content">
+          <div style="width: 100%;">
+            <h3 class="mystery-back-title">What it means for you</h3>
+            <div class="mystery-back-body">
+              <p>${stepData.impactText}</p>
+            </div>
+          </div>
+          <div class="mystery-related-links" style="width: 100%; margin-top: 16px; text-align: left;">
+            <span class="related-links-label">CHECK OUT SOMETHING SIMILAR</span>
+            ${relatedLinksHtml}
+          </div>
+        </div>
+      `;
+
+      const relatedLinks = flipBack.querySelectorAll(".related-link-item");
+      relatedLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          const storyId = e.currentTarget.getAttribute("data-story-id");
+          if (storyId) {
+            showToast("Loading story...");
+            setTimeout(() => {
+              window.loadStory(storyId);
+            }, 300);
+          }
+        });
+      });
+      
+      flipInner.appendChild(flipFront);
+      flipInner.appendChild(flipBack);
+      flipContainer.appendChild(flipInner);
+      
+      // Flip logic (click and swipe down)
+      const toggleFlip = () => flipInner.classList.toggle("is-flipped");
+
+      flipContainer.addEventListener("click", toggleFlip);
+
+      // Swipe down detection for flipContainer
+      let startY = 0;
+      flipContainer.addEventListener("touchstart", (e) => {
+        startY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      flipContainer.addEventListener("touchend", (e) => {
+        const endY = e.changedTouches[0].screenY;
+        const deltaY = endY - startY;
+        // If swiped down or up by more than 50px, toggle flip
+        if (Math.abs(deltaY) > 50) {
+          toggleFlip();
+        }
+      }, { passive: true });
+
+      const slidePaginationDots = createPaginationDots({
+        total: loopSteps.length,
+        activeIndex: index,
+        onChange: (targetIdx) => {
+          scrollContainer.scrollTo({
+            left: targetIdx * scrollContainer.clientWidth,
+            behavior: "smooth"
+          });
+        }
+      });
+
+      slide.appendChild(flipContainer);
+      slide.appendChild(slidePaginationDots);
+      scrollContainer.appendChild(slide);
+      return; // Skip normal rendering for this step
+    }
+
     // Create Hero Card
     const heroCardWrapper = createHeroStoryCard({
       imageUrl: stepData.imageUrl,
@@ -115,31 +390,35 @@ export function renderApp(mountNode) {
       recency: stepData.age
     });
 
-    // Handle Hero Peeks (make them scroll instead of rendering a new step)
+    // Handle Hero Peeks (make them scroll instead of rendering a new step) if they exist
     const leftPeek = heroCardWrapper.querySelector(".left-peek");
     const rightPeek = heroCardWrapper.querySelector(".right-peek");
 
-    leftPeek.addEventListener("click", () => {
-      if (index > 0) {
-        scrollContainer.scrollTo({
-          left: (index - 1) * scrollContainer.clientWidth,
-          behavior: "smooth"
-        });
-      } else {
-        triggerBounce("left");
-      }
-    });
+    if (leftPeek) {
+      leftPeek.addEventListener("click", () => {
+        if (index > 0) {
+          scrollContainer.scrollTo({
+            left: (index - 1) * scrollContainer.clientWidth,
+            behavior: "smooth"
+          });
+        } else {
+          triggerBounce("left");
+        }
+      });
+    }
 
-    rightPeek.addEventListener("click", () => {
-      if (index < loopSteps.length - 1) {
-        scrollContainer.scrollTo({
-          left: (index + 1) * scrollContainer.clientWidth,
-          behavior: "smooth"
-        });
-      } else {
-        triggerBounce("right");
-      }
-    });
+    if (rightPeek) {
+      rightPeek.addEventListener("click", () => {
+        if (index < loopSteps.length - 1) {
+          scrollContainer.scrollTo({
+            left: (index + 1) * scrollContainer.clientWidth,
+            behavior: "smooth"
+          });
+        } else {
+          triggerBounce("right");
+        }
+      });
+    }
 
     // Dots Spacer
     const dotsSpacer = document.createElement("div");
@@ -173,6 +452,7 @@ export function renderApp(mountNode) {
               <polyline points="12 5 19 12 12 19"></polyline>
             </svg>
           </button>
+          <div style="height: 48px; width: 100%;"></div>
         </div>
       `;
 
@@ -185,15 +465,19 @@ export function renderApp(mountNode) {
       });
 
     } else {
-      const impactPanel = createInsetImpactPanel({ text: stepData.impactText });
+      const children = [];
+      if (stepData.impactText) {
+        const impactPanel = createInsetImpactPanel({ text: stepData.impactText });
+        children.push(impactPanel);
+      }
       
       const fullReportLink = document.createElement("a");
       fullReportLink.href = "#";
       fullReportLink.className = "full-report-cue";
       fullReportLink.setAttribute("role", "button");
-      fullReportLink.setAttribute("aria-label", "Vollständigen Bericht lesen");
+      fullReportLink.setAttribute("aria-label", "Read the full article");
       fullReportLink.innerHTML = `
-        <span>Vollständigen Bericht lesen</span>
+        <span>Swipe up to read the full article</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
@@ -207,7 +491,7 @@ export function renderApp(mountNode) {
         title: stepData.title,
         impactTitle: stepData.impactTitle,
         counter: `${stepData.step}/${loopSteps.length}`,
-        children: [impactPanel, fullReportLink]
+        children: [...children, fullReportLink]
       });
     }
 
@@ -237,7 +521,7 @@ export function renderApp(mountNode) {
     const topBarPillsContainer = topBar.querySelector(".loops-top-bar-pills");
     if (topBarPillsContainer) {
       topBarPillsContainer.innerHTML = "";
-      resolvedPill = createStatusPill({ label: currentStepData.status, type: currentStepData.status === "RESOLVED" || currentStepData.status === "DO NEXT" ? "resolved" : "category" });
+      resolvedPill = createStatusPill({ label: currentStepData.status, type: currentStepData.status === "EILMELDUNG" ? "eilmeldung" : (currentStepData.status === "RESOLVED" || currentStepData.status === "DO NEXT" ? "resolved" : "category") });
       categoryPill = createStatusPill({ label: currentStepData.category, type: "category" });
       topBarPillsContainer.appendChild(resolvedPill);
       topBarPillsContainer.appendChild(categoryPill);
@@ -281,6 +565,32 @@ export function renderApp(mountNode) {
 
   // Append elements to app shell
   mountNode.appendChild(topBar);
+  // Swipe-up gesture to open drawer (only when at the bottom of the slide)
+  let touchStartY = 0;
+  let wasAtBottomOnStart = false;
+  
+  contentArea.addEventListener('touchstart', (e) => {
+    touchStartY = e.changedTouches[0].screenY;
+    const slide = e.target.closest('.loop-slide');
+    if (slide) {
+      wasAtBottomOnStart = slide.scrollTop + slide.clientHeight >= slide.scrollHeight - 10;
+    } else {
+      wasAtBottomOnStart = true;
+    }
+  }, { passive: true });
+  
+  contentArea.addEventListener('touchend', (e) => {
+    // If the swipe originated on a flip card, ignore it for the article drawer
+    if (e.target.closest('.flip-container')) return;
+
+    const touchEndY = e.changedTouches[0].screenY;
+    const distance = touchStartY - touchEndY;
+    // Less aggressive swipe: require 100px swipe AND being at the bottom of the content
+    if (distance > 100 && wasAtBottomOnStart) {
+      openArticleDrawer();
+    }
+  }, { passive: true });
+
   mountNode.appendChild(contentArea);
 
   // 11. Create Toast Notification element (inside shell)
@@ -315,34 +625,206 @@ export function renderApp(mountNode) {
     </div>
     <div class="drawer-content">
       <div class="drawer-meta">
-        <span class="drawer-category">LOCAL GOVERNMENT</span>
+        <span class="drawer-category">${currentStory.category.toUpperCase()}</span>
         <span class="drawer-divider">•</span>
-        <span class="drawer-time">1d ago</span>
+        <span class="drawer-time">${currentStory.age}</span>
       </div>
-      <h1 class="drawer-title">Weststadt Bicycle Corridor: Repair and Safety Upgrade Completed</h1>
-      <p class="drawer-lead">The Heilbronn city administration has completed extensive renovation work on the central Weststadt bicycle route. <mark class="editorial-highlight">The million-euro project is primarily aimed at making school routes safer.</mark></p>
+      <h1 class="drawer-title">${currentStory.title}</h1>
       
-      <img src="${storyLoop.imageUrl}" alt="${storyLoop.imageAlt}" class="drawer-image" />
+      ${currentStory.articleBody}
       
-      <p class="drawer-body">After nearly four months of construction, the busy Weststadt route is fully open to traffic. In addition to a noise-optimized, smooth asphalt surface, wider, color-contrasted protective lanes have been applied along a length of approximately 1.8 kilometers.</p>
-      
-      <p class="drawer-body">“The project shows what modern local mobility can look like in our region,” said Mayor Harry Mergel at the official opening. <mark class="editorial-highlight">The focus was particularly on increasing passive safety at complex intersections</mark>, where reflective marking elements and optimized traffic light phases were installed.</p>
-      
-      <div class="drawer-quote-panel">
-        <span class="quote-symbol">„</span>
-        <p class="quote-text">Most of all, the improved drainage at the road shoulders ensures that cyclists are no longer endangered by deep puddles during heavy rain.</p>
+      <!-- Completion Zone -->
+      <div class="article-completion-zone">
+        <div class="completion-badge"></div>
+        <p class="completion-text">You've read the full article!</p>
       </div>
 
-      <p class="drawer-body"><mark class="editorial-highlight">The costs amount to around €820,000</mark>, the majority of which was funded by the state's transport financing act. Commuters and residents expressed positive feedback about the new riding comfort in initial surveys.</p>
+      <!-- Sources & Credits Zone -->
+      <div class="article-sources-zone">
+        <h4 class="sources-heading">Sources & Credits</h4>
+        <ul class="sources-list">
+          <li><a href="#" class="source-link" onclick="event.preventDefault()">Official Press Release (Local Govt)</a></li>
+          <li><span class="source-informant">Confidential Informant (Verified)</span></li>
+          <li><span class="source-writer">Written by: ${currentStory.author}</span></li>
+        </ul>
+      </div>
     </div>
   `;
   mountNode.appendChild(articleDrawer);
+
+  // --- News List Drawer Setup ---
+  const newsListDrawer = document.createElement("div");
+  newsListDrawer.className = "news-list-drawer";
+  newsListDrawer.innerHTML = `
+    <div class="news-list-header">
+      <h3 class="news-list-title">Stimme Loops</h3>
+      <button class="btn-news-close" aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="feed-filters">
+      <button class="feed-filter-pill active">All</button>
+      <button class="feed-filter-pill">Housing</button>
+      <button class="feed-filter-pill">Mobility</button>
+      <button class="feed-filter-pill">Climate</button>
+      <button class="feed-filter-pill">Local Gov</button>
+    </div>
+    <div class="news-list-content">
+      ${allStories.map(story => `
+        <div class="feed-card" data-story-id="${story.id}">
+          <div class="feed-image-container">
+            <img src="${story.thumb}" class="feed-image" alt="${story.title}">
+            <div class="feed-badges-top-left">
+              ${story.status === "BREAKING" || story.status === "UPDATE" || story.status === "EILMELDUNG" ? 
+                `<span class="feed-badge-urgent" ${story.status === "UPDATE" ? 'style="background-color: #D98A2B"' : ''}>${story.status}</span>` : ''}
+              <span class="feed-badge-cat">${story.category}</span>
+            </div>
+            <div class="feed-badge-trust">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              92%
+            </div>
+          </div>
+          <div class="feed-content">
+            <h4 class="feed-headline" style="margin-top: 4px; margin-bottom: 12px;">${story.title}</h4>
+            <div class="feed-meta">
+              <div class="feed-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                ${story.distance}
+              </div>
+              <div class="feed-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                ${story.age}
+              </div>
+              <div class="feed-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                ${story.sources}
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+  mountNode.appendChild(newsListDrawer);
+
+  window.openNewsList = function() {
+    newsListDrawer.classList.add("is-open");
+  };
+
+  function closeNewsList() {
+    newsListDrawer.classList.remove("is-open");
+  }
+
+  newsListDrawer.querySelector(".btn-news-close").addEventListener("click", closeNewsList);
+  
+  // Attach click listener to filter pills
+  newsListDrawer.querySelectorAll(".feed-filter-pill").forEach(pill => {
+    pill.addEventListener("click", (e) => {
+      // Remove active class from all pills
+      newsListDrawer.querySelectorAll(".feed-filter-pill").forEach(p => p.classList.remove("active"));
+      // Add active class to the clicked pill
+      e.currentTarget.classList.add("active");
+      
+      const selectedCategory = e.currentTarget.textContent.trim();
+      const allCards = newsListDrawer.querySelectorAll(".feed-card");
+      
+      allCards.forEach(card => {
+        if (selectedCategory === "All") {
+          card.style.display = "flex";
+        } else {
+          const cardCat = card.querySelector(".feed-badge-cat").textContent.trim();
+          if (cardCat.toUpperCase() === selectedCategory.toUpperCase()) {
+            card.style.display = "flex";
+          } else {
+            card.style.display = "none";
+          }
+        }
+      });
+    });
+  });
+  
+  // Attach click listener to each card to load a new story
+  newsListDrawer.querySelectorAll(".feed-card").forEach(card => {
+    card.addEventListener("click", (e) => {
+      const storyId = e.currentTarget.getAttribute("data-story-id");
+      closeNewsList();
+      setTimeout(() => {
+        window.loadStory(storyId);
+      }, 300); // Wait for drawer to animate out
+    });
+  });
+
+  window.loadStory = function(storyId) {
+    _storyLoadedByUser = true;
+    activeStoryId = storyId;
+    const appContainer = document.getElementById('app');
+    renderApp(appContainer);
+  };
+
+  // Auto-open news list on initial page load (not on story reload)
+  if (!_storyLoadedByUser) {
+    newsListDrawer.classList.add("is-open");
+  }
 
   const closeDrawerBtn = articleDrawer.querySelector(".btn-drawer-close");
   closeDrawerBtn.addEventListener("click", closeArticleDrawer);
 
   // Drag-to-close and Scroll-up-to-close logic
   const drawerContent = articleDrawer.querySelector(".drawer-content");
+  
+  let articleValidated = false;
+
+  // Scroll detection for article completion validation animation
+  drawerContent.addEventListener("scroll", () => {
+    // Only validate if not already validated and drawer is open
+    if (articleValidated || !articleDrawer.classList.contains("is-open")) return;
+
+    // Check if user has scrolled to the bottom of the article drawer content
+    const threshold = 15; // offset tolerance
+    const isAtBottom = drawerContent.scrollTop + drawerContent.clientHeight >= drawerContent.scrollHeight - threshold;
+
+    if (isAtBottom) {
+      articleValidated = true;
+
+      const completionZone = drawerContent.querySelector(".article-completion-zone");
+      if (completionZone) {
+        completionZone.classList.add("is-visible");
+
+        // Insert checkmark SVG to start animation
+        const badge = completionZone.querySelector(".completion-badge");
+        badge.innerHTML = `
+          <svg class="checkmark-svg" viewBox="0 0 52 52">
+            <circle cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+          </svg>
+        `;
+
+        // Wait a brief moment for checkmark layout, then calculate coordinates relative to mountNode
+        setTimeout(() => {
+          const badgeRect = badge.getBoundingClientRect();
+          const mountRect = mountNode.getBoundingClientRect();
+          const originX = badgeRect.left - mountRect.left + badgeRect.width / 2;
+          const originY = badgeRect.top - mountRect.top + badgeRect.height / 2;
+
+          triggerConfetti(originX, originY);
+          showToast("Article completed! 🎉");
+        }, 100);
+      }
+    }
+  });
   let drawerStartY = 0;
   let drawerCurrentY = 0;
   let drawerIsDragging = false;
@@ -373,7 +855,7 @@ export function renderApp(mountNode) {
     drawerIsDragging = false;
     articleDrawer.style.transition = "";
     const deltaY = drawerCurrentY - drawerStartY;
-    if (deltaY > 100) {
+    if (deltaY > 150) {
       closeArticleDrawer();
     } else {
       articleDrawer.style.transform = "";
@@ -406,7 +888,7 @@ export function renderApp(mountNode) {
     drawerIsDragging = false;
     articleDrawer.style.transition = "";
     const deltaY = drawerCurrentY - drawerStartY;
-    if (deltaY > 100) {
+    if (deltaY > 150) {
       closeArticleDrawer();
     } else {
       articleDrawer.style.transform = "";
@@ -422,6 +904,16 @@ export function renderApp(mountNode) {
   function openArticleDrawer() {
     articleDrawer.style.transform = "";
     articleDrawer.classList.add("is-open");
+    
+    // Reset validation state on open
+    articleValidated = false;
+    const completionZone = drawerContent.querySelector(".article-completion-zone");
+    if (completionZone) {
+      completionZone.classList.remove("is-visible");
+      const badge = completionZone.querySelector(".completion-badge");
+      if (badge) badge.innerHTML = ""; // Clear checkmark SVG
+    }
+    
     setTimeout(() => closeDrawerBtn.focus(), 300);
   }
 
@@ -571,6 +1063,49 @@ export function renderApp(mountNode) {
     }, 400);
 
     // Clean up particles
+    setTimeout(() => {
+      particleContainer.remove();
+    }, 1000);
+  }
+
+  // Confetti Particle Generator for Article Validation
+  function triggerConfetti(originX, originY) {
+    const particleContainer = document.createElement("div");
+    particleContainer.className = "explosion-container";
+    particleContainer.style.position = "absolute";
+    particleContainer.style.left = "0";
+    particleContainer.style.top = "0";
+    particleContainer.style.right = "0";
+    particleContainer.style.bottom = "0";
+    particleContainer.style.pointerEvents = "none";
+    particleContainer.style.zIndex = "300";
+    mountNode.appendChild(particleContainer);
+
+    const colors = ["#4CAF50", "#8BC34A", "#CDDC39", "#214E37", "#00BCD4", "#FFEB3B", "#FF5722"];
+    const count = 40;
+
+    for (let i = 0; i < count; i++) {
+      const particle = document.createElement("div");
+      particle.className = "fire-particle";
+      
+      const angle = (i / count) * 2 * Math.PI + (Math.random() * 0.4 - 0.2);
+      const distance = 50 + Math.random() * 100;
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const size = 8 + Math.random() * 12;
+      
+      particle.style.left = `${originX - size / 2}px`;
+      particle.style.top = `${originY - size / 2}px`;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.setProperty("--dx", `${dx}px`);
+      particle.style.setProperty("--dy", `${dy}px`);
+      particle.style.setProperty("--color", color);
+      
+      particleContainer.appendChild(particle);
+    }
+
     setTimeout(() => {
       particleContainer.remove();
     }, 1000);
