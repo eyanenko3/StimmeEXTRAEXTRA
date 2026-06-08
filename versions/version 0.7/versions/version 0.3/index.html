@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Stimme Loops — Regional Micro-News Prototype</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Stimme Loops is a premium regional micro-news format for stimme.de translating local journalism into a calm, mobile-first broadsheet sequence.">
+  <meta name="theme-color" content="#16324A">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="src/app/globals.css?v=9.0">
+</head>
+<body>
+
+  <!-- Mobile App Shell -->
+  <div id="app" class="app-shell" role="document" aria-label="Stimme Loops Mobile App Shell">
+    <!-- Mounted by Page JS -->
+  </div>
+
+  <!-- Bootstrapping Script with Error Catcher -->
+  <script type="module">
+    window.addEventListener("error", (event) => {
+      document.body.innerHTML = `<div style="padding: 20px; color: red;"><h1>Global Error:</h1><pre>${event.message}</pre><pre>${event.error ? event.error.stack : ''}</pre></div>`;
+    });
+    window.addEventListener("unhandledrejection", (event) => {
+      document.body.innerHTML = `<div style="padding: 20px; color: red;"><h1>Unhandled Promise Rejection:</h1><pre>${event.reason}</pre></div>`;
+    });
+
+    try {
+      import('./src/app/page.js?v=9.0').then(module => {
+        const appContainer = document.getElementById('app');
+        module.renderApp(appContainer);
+      }).catch(err => {
+        document.body.innerHTML = `<div style="padding: 20px; color: red;"><h1>Import Error:</h1><pre>${err.message}</pre><pre>${err.stack}</pre></div>`;
+      });
+    } catch (e) {
+      document.body.innerHTML = `<div style="padding: 20px; color: red;"><h1>Sync Error:</h1><pre>${e.message}</pre></div>`;
+    }
+  </script>
+</body>
+</html>
